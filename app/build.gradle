@@ -8,7 +8,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -19,11 +19,27 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    implementation 'commons-codec:commons-codec:1.3'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation deps.android.appcompat
+    implementation deps.android.design
+    //    implementation deps.android.recyclerview
+    //    implementation deps.android.designL
+    //    implementation deps.android.cardView
+    implementation deps.android.constraint_layout
+    implementation deps.room.runtime
+    annotationProcessor deps.room.compiler
+    annotationProcessor deps.dagger.compiler
+    implementation deps.dagger.core
+    implementation deps.rx.rxjava
+    implementation deps.rx.rxandroid
+    annotationProcessor deps.javax.annotation
+    implementation deps.javax.inject
+    implementation deps.retrofit.core
+    implementation deps.retrofit.okhttp
+    implementation deps.retrofit.gson
+    testImplementation deps.test.junit
+    implementation deps.android.codec
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    //    implementation 'com.android.support:support-annotations:28.0.0'
 }

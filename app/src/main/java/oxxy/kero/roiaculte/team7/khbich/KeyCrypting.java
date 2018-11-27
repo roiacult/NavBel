@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 
 public class KeyCrypting {
-    public String CrypteIt(){
+    public static String CrypteIt(){
         final String Pwd = "team7";
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
