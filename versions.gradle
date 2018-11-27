@@ -13,7 +13,7 @@ ext{
 //def means we're making a local variable. We'll use this map to build our deps key/value
 //pairs below
     def versions = [:]
-    versions.lifecycle = "2.0.0-rc01"
+    versions.lifecycle = "2.0.0"
     versions.junit = "5.1.1"
     versions.design= "1.0.0-beta01"
     versions.room = "2.1.0-alpha01"
@@ -43,10 +43,13 @@ ext{
     android.designL =  "com.android.support:design:$versions.compact"
     android.cardView= "com.android.support:cardview-v7:$versions.compact"
     android.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    android.lifecycle = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    android.reactive ="androidx.lifecycle:lifecycle-reactivestreams:$versions.lifecycle"
     deps.android = android
     def room = [:]
     room.runtime = "androidx.room:room-runtime:$versions.room"
     room.compiler = "androidx.room:room-compiler:$versions.room"
+    room.rxjava =    "androidx.room:room-rxjava2:$versions.room"
     deps.room = room
     def dagger = [:]
     dagger.compiler ="com.google.dagger:dagger-compiler:$versions.dagger"
