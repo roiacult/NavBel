@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.Registration.signIn;
+package oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn;
 
 import android.text.TextUtils;
 

@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:name=".MyApp"
         android:theme="@style/AppTheme">
-
-
-        <activity android:name=".Registration.Registration"
+        <activity android:name=".ui.Registration.Registration"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 

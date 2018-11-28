@@ -1,13 +1,12 @@
-package oxxy.kero.roiaculte.team7.khbich.model.remote;
+package oxxy.kero.roiaculte.team7.khbich.model.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
 public class User {
     @SerializedName("name")
     @Expose
-    private String Name ;
+    private String name ;
     @SerializedName("email")
     @Expose
     private String email ;
@@ -22,37 +21,39 @@ public class User {
 //    private Date date  ;  we will handle it later
     @SerializedName("year")
     @Expose
-    private String Year;
+    private String year;
     @SerializedName("point")
     @Expose
     private String points ;
-    @SerializedName("Qsolved")
-    @Expose private String Qsolved ;
+    @SerializedName("qsolved")
+    @Expose
+    private String qsolved;
     @SerializedName("level")
     @Expose
-    private String Level ;
+    private String level ;
 
-    public User(String name, String email, String password, String date, String year, String points, String qsolved, String level) {
-        Name = name;
+    public User(String name, String email, String password,String picture ,  String date, String year, String points, String qsolved, String level) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.date = date;
-        Year = year;
+        this.year = year;
         this.points = points;
-        Qsolved = qsolved;
-        Level = level;
+        this.qsolved = qsolved;
+        this.level = level;
+        this.picture = picture;
     }
 
-    public User(String name, String email, String password, String date, String year) {
-        this(name, email, password, date, year , "0","", "0");
+    public User(String name, String email, String password, String picture , String date, String year) {
+        this(name, email, password,picture ,date, year , "0","", "0");
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 
     public String getEmail() {
@@ -80,11 +81,11 @@ public class User {
     }
 
     public String getYear() {
-        return Year;
+        return year;
     }
 
     public void setYear(String year) {
-        Year = year;
+        year = year;
     }
 
     public String getPoints() {
@@ -96,19 +97,19 @@ public class User {
     }
 
     public String getQsolved() {
-        return Qsolved;
+        return qsolved;
     }
 
     public void setQsolved(String qsolved) {
-        Qsolved = qsolved;
+        this.qsolved = qsolved;
     }
 
     public String getLevel() {
-        return Level;
+        return level;
     }
 
     public void setLevel(String level) {
-        Level = level;
+        level = level;
     }
 
     public String getPicture() {

@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.Registration;
+package oxxy.kero.roiaculte.team7.khbich.ui.Registration;
 
 import android.os.Bundle;
 
@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import oxxy.kero.roiaculte.team7.khbich.R;
-import oxxy.kero.roiaculte.team7.khbich.Registration.Login.Login;
-import oxxy.kero.roiaculte.team7.khbich.Registration.signIn.SignIn;
+import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login.Login;
+import oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn.SignIn;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.databinding.ActivityMainBinding;
 

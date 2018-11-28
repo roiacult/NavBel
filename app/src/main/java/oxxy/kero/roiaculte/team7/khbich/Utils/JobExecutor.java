@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.model.remote;
+package oxxy.kero.roiaculte.team7.khbich.Utils;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
