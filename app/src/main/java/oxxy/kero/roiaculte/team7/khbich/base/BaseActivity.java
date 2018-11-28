@@ -48,15 +48,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     }
 
-//    public void showSnackBar(String message) {
+    public void showSnackBar(String message) {
 //        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
 //                message, Snackbar.LENGTH_SHORT);
 //        View sbView = snackbar.getView();
 //        TextView textView = (TextView) sbView
-//                .findViewById(R.id.);
+//                .findViewById();
 //        textView.setTextColor(ContextCompat.getColor(this, R.color.white));
 //        snackbar.show();
-//    }
+    }
 
     public void  setToolbar(Toolbar toolbar){
         setSupportActionBar(toolbar);
@@ -121,11 +121,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
 
     @Override
     public void openActivityOnTokenExpire() {
-        //TODO open signIn Activity
 
-        //todo  i dont thik its a good idea to allow each activity to signout just let onee activity to sign out
-        // this method will be caled when ever the user is loged out
-        //or his auhentification expired (dok rigalha manba3d )
     }
 
 

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".model.remote.splash.SplashScren"
+        <activity android:name=".Registration.Registration"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 

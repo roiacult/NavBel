@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.model.remote.splash;
+package oxxy.kero.roiaculte.team7.khbich.ui.splash;
 
 import oxxy.kero.roiaculte.team7.khbich.base.MvpBasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.base.MvpView;

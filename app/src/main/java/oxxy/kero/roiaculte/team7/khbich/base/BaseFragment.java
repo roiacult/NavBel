@@ -28,8 +28,7 @@ public class BaseFragment extends Fragment implements MvpView, HasComponent<User
         super.onAttach(context);
         if(context  instanceof  BaseActivity){
             mActivity= (BaseActivity) context ;
-            component = DaggerUserComponent.builder().appComponent(mActivity.getApplicationComponent())
-                    .userModule(new UserModule(this)).build();
+            component = DaggerUserComponent.builder().appComponent(mActivity.getApplicationComponent()).build();
         }
     }
 
@@ -37,11 +36,6 @@ public class BaseFragment extends Fragment implements MvpView, HasComponent<User
     public void onDetach() {
         super.onDetach();
         mActivity = null ;
-    }
-
-
-    protected <C> C getComponent(Class<C> componentType) {
-        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 
     @Override
