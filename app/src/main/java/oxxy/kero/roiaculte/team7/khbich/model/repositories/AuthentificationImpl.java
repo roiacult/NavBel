@@ -40,13 +40,10 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
                 }))
                 , observer);
     }
-
     @Override
     public LiveData<UserState> checkUser(String mail) {
         return convertToLiveData(auth.CheckUser(mail));
-
     }
-
     @Override
     public LiveData<Boolean> isUserLoggedIn() {
         MutableLiveData<Boolean> mutableLiveData = new MutableLiveData();
