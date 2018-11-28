@@ -2,6 +2,7 @@ package oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao;
 
 import org.json.JSONObject;
 
+import oxxy.kero.roiaculte.team7.khbich.model.models.Message;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,9 +15,10 @@ public interface RemoteDao {
     @POST("index.php?op=signin")
     Call<String> saveUser(@Body User user, @Query("skey") String Skey ) ;
 
-    @GET("index.php?p=check&")
+    @GET("index.php?op=check")
     Call<String>  checkUser(@Query("email") String email , @Query("skey") String Skey);
 
-
+    @GET("index.php?op=check")
+    Call<Message> checkUserJson(@Query("email") String email , @Query("skey") String Skey);
 
 }

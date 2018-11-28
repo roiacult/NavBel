@@ -20,16 +20,6 @@ public class MainSharedReference {
     private static final String QSOLVED = "oxxy.kero.roiaculte.team7.khbich.QSOLVED";
     private static final String LEVEL = "oxxy.kero.roiaculte.team7.khbich.LEVEL";
     private static final String Date= "oxxy.kero.roiaculte.team7.khbich.DATE";
-
-//      private String name ;
-//    private String email ;
-//    private String picture ;
-//    private String password;
-//    private UserState year;
-//    private int points ;
-//    //todo configure this to a liste of questions
-//    private String qsolved;
-//    private int level ;
     private SharedPreferences preferences ;
     @Inject
     public MainSharedReference(SharedPreferences preferences) {

@@ -7,8 +7,12 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.observers.DisposableCompletableObserver;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.base.BasRepository;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
@@ -44,10 +48,12 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     public LiveData<UserState> checkUser(String mail) {
         return convertToLiveData(auth.CheckUser(mail));
     }
+
     @Override
     public LiveData<Boolean> isUserLoggedIn() {
         MutableLiveData<Boolean> mutableLiveData = new MutableLiveData();
         mutableLiveData.setValue(preference.IsUserLOgged());
         return mutableLiveData;
     }
+
 }

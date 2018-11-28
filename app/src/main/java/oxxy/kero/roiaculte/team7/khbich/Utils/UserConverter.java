@@ -9,6 +9,7 @@ import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 public class UserConverter {
     public static UserState fromInt(int userState){
         switch (userState){
+            case -1 : return UserState.USER_ALREADY_REGISTRED;
             case 0 :return UserState.USER_DONT_EXISTE;
             case 1 :return  UserState.USER_1CPI ;
             case 2 :return UserState.USER_2CPI;
@@ -21,6 +22,7 @@ public class UserConverter {
     public static int froUserState (UserState state){
         switch (state){
             case USER_DONT_EXISTE: return 0;
+            case USER_ALREADY_REGISTRED: return -1;
             case USER_1CPI: return  1 ;
             case USER_2CPI: return 2;
             case USER_1CS: return 3 ;

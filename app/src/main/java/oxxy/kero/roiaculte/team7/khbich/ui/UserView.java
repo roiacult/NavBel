@@ -32,6 +32,9 @@ public class UserView {
         this.level = level;
     }
 
+    public UserView() {
+    }
+
     public Date getDate() {
         return date;
     }

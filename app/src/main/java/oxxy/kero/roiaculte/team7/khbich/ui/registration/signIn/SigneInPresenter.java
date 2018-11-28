@@ -53,7 +53,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
             getView().showLoading(true);
 
 
-            if(viewModel.getUserState() == null) viewModel.setUserState(repo.checkUser(getView().getEmail()));
+            viewModel.setUserState(repo.checkUser(getView().getEmail()));
 
             viewModel.getUserState().observe(getView().getBaseActivity(),new USerStateObserver());
         }
@@ -74,7 +74,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
 
             switch (userState){
                 case USER_DONT_EXISTE :
-                    getView().showMessage("User ! exist");
+                    getView().showMessage("User not exist");
                     break;
                 case USER_ALREADY_REGISTRED:
                     getView().showMessage("you are alredy registered");

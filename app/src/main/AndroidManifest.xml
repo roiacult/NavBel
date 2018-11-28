@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:name=".MyApp"
         android:theme="@style/AppTheme">
-
+       <activity android:name=".ui.saveinfo.SaveInfo"></activity>
 
         <activity android:name=".ui.registration.Registration"
             android:screenOrientation="portrait"
@@ -24,9 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.saveinfo.SaveInfo"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
     </application>
 
 </manifest>
