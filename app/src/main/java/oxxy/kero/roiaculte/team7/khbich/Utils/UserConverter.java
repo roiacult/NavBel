@@ -39,7 +39,7 @@ public class UserConverter {
     public static User fromViewToRemote(UserView userView) {
         return new User("\""+userView.getName()+"\"","\""+userView.getEmail()+"\""
         , "\""+userView.getPassword()+"\"", "\""+userView.getPassword()+"\"",
-                "\""+fromDate(userView.getDate())+"\"", "'"+froUserState(userView.getYear())+"\"",
+                "\""+fromDate(userView.getDate())+"\"", "\""+froUserState(userView.getYear())+"\"",
                 "\""+String.valueOf(userView.getPoints())+"\"", "\""+userView.getQsolved()+"\"",
                 "\""+String.valueOf(userView.getLevel())+"\"") ;
     }

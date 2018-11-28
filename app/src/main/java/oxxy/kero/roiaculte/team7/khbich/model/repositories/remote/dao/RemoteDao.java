@@ -15,10 +15,12 @@ public interface RemoteDao {
     @POST("index.php?op=signin")
     Call<String> saveUser(@Body User user, @Query("skey") String Skey ) ;
 
-    @GET("index.php?op=check")
-    Call<String>  checkUser(@Query("email") String email , @Query("skey") String Skey);
+//    @GET("index.php?op=check")
+//    Call<String>  checkUser(@Query("email") String email , @Query("skey") String Skey);
 
     @GET("index.php?op=check")
     Call<Message> checkUserJson(@Query("email") String email , @Query("skey") String Skey);
 
+    @GET("index.php?op=login")
+    Call<User> loginUser(@Query("email") String mail , @Query("password") String password, @Query("skey")String Skey);
 }

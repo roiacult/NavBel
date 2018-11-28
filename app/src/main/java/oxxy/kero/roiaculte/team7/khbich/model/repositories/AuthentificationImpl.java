@@ -24,7 +24,7 @@ import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 
 public class AuthentificationImpl extends BasRepository implements AuthentificationRepository {
     private Authentification auth ;
-    MainSharedReference preference ;
+    private MainSharedReference preference ;
 
 
     public AuthentificationImpl(Authentification auth, JobExecutor executor, MainSharedReference preference) {
@@ -56,4 +56,9 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         return mutableLiveData;
     }
 
+    @Override
+    public void LogUserIn(String mail, String password, DisposableObserver<User> observer) {
+        auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
+                .subscribeWith(observer);
+    }
 }

@@ -33,8 +33,6 @@ public class Authentification {
     public Authentification(Retrofit retrofit) {
         this.dao = retrofit.create(RemoteDao.class);
     }
-
-
     public Completable signUpUsere(final User user){
         final String Key  = KeyCrypting.CrypteIt();
         return Completable.create(new CompletableOnSubscribe() {
@@ -63,10 +61,7 @@ public class Authentification {
             }
         });
     }
-//    public Call<Message> check(String mail){
-//        String Key = KeyCrypting.CrypteIt();
-//        return dao.checkUserJson(mail, Key);
-//    }
+
     public Completable SignUpUser(final UserView user) {
          final String Key  = KeyCrypting.CrypteIt();
          return Completable.create(new CompletableOnSubscribe() {
@@ -118,4 +113,42 @@ public class Authentification {
             }
         });
     }
+
+
+    public Observable<User> loginUser(final String mail , final String password) {
+        final String Key = KeyCrypting.CrypteIt();
+        return Observable.create(new ObservableOnSubscribe<User>() {
+            @Override
+            public void subscribe(final ObservableEmitter<User> emitter) throws Exception {
+                dao.loginUser(mail, password, Key).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if (!emitter.isDisposed()) {
+                            Log.d(TAG, "onResponse: " + response.message());
+                            Log.d(TAG, "onResponse: " + response.toString());
+                            if (!emitter.isDisposed()) {
+                                if (response.body() == null) {
+                                    Log.d(TAG, "onResponse: errroooorr");
+                                    //todo add error password false
+                                }
+                                emitter.onNext(response.body());
+                                emitter.onComplete();
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
+                        if(!emitter.isDisposed()) {
+                            emitter.onError(t);
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+
 }

@@ -25,9 +25,11 @@ public class MainSharedReference {
     public MainSharedReference(SharedPreferences preferences) {
         this.preferences = preferences;
     }
+
     public void LogUserIn(UserView userView){
          SaveUser();
          SharedPreferences.Editor editor = preferences.edit();
+         editor.putBoolean(IS_USER_LOGGED, true);
          editor.putString(USER_NAME , userView.getName());
          editor.putString(USER_MAIL, userView.getEmail());
          editor.putString(USER_PICTURE, userView.getPassword());
