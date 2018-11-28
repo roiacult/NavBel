@@ -17,6 +17,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -36,7 +37,7 @@ public class MainActivity extends BaseActivity {
         User user = new User("\"mohamed\"", "\"m.slamat@esi-sba.dz\"", "\"hello\"", "\"picture\"",
                 "\"hellooow\""
                 , "\"2cpi\"", "\"150\"", "\"sdfghj\"", "\"12\"");
-        if(authentification==null){
+        if(authentification==null && retrofit ==null){
             Log.d(TAG, "onCreate: ");
         }else
     authentification.SignUpUser(user).subscribeOn(Schedulers.from(new  JobExecutor()))

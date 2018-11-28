@@ -38,7 +38,7 @@ public class AppModule {
      }
      @Provides @Singleton
     OkHttpClient provideOkhttpClient (){
-        return   new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor()
+        return new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor()
                 .setLevel(HttpLoggingInterceptor.Level.BODY)).build();
      }
      @Provides @Singleton
