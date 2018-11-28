@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/nav_botom_main"
+        android:title="@string/main" />
+
+    <item
+        android:id="@+id/navigation_module"
+        android:icon="@drawable/nav_botom_forum"
+        android:title="@string/Forume" />
+
+    <item
+        android:id="@+id/navigation_events"
+        android:icon="@drawable/nav_botom_rewards"
+        android:title="@string/rewards" />
+
+    <item
+        android:id="@+id/navigation_moyen"
+        android:icon="@drawable/nav_botom_profile"
+        android:title="@string/moyene" />
+
+</menu>

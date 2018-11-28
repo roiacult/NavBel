@@ -3,4 +3,16 @@
     <string name="open_drawer">open_drawer</string>
     <string name="close_drawer">close_drawer</string>
     <string name="some_error">some_error</string>
+    <string name="login">login</string>
+    <string name="creat_acount">creat acount</string>
+    <string name="email">Email</string>
+    <string name="password">password</string>
+    <string name="repeatPassword">repeat password</string>
+    <string name="name">name</string>
+    <string name="famillyname">Last Name</string>
+    <string name="next">Save</string>
+    <string name="main">Main</string>
+    <string name="Forume">Forum</string>
+    <string name="rewards">rewards</string>
+    <string name="moyene">Profile</string>
 </resources>
