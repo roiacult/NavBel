@@ -14,6 +14,8 @@ import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfo;
 public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> implements ContractSignIn.PRESENTER {
 
     public static String YEAR = "year";
+    public static String EMAIL = "email";
+    public static String PASSWORD = "password";
 
     private ContractSignIn.VIEW view;
     private RegistrationViewModel viewModel;
@@ -86,6 +88,8 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                 default: //todo start save info activity
                     Intent intent = new Intent(getView().getBaseActivity(),SaveInfo.class);
                     intent.putExtra(YEAR,YearConverter.from(userState));
+                    intent.putExtra(EMAIL,getView().getEmail());
+                    intent.putExtra(PASSWORD,getView().getPasssword());
                     getView().getBaseActivity().startActivity(intent);
                     getView().getBaseActivity().finish();
             }

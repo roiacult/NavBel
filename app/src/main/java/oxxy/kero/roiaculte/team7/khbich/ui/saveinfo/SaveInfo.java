@@ -34,6 +34,8 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
 
         if (savedInstanceState == null){
             viewModel.getUserView().setYear(YearConverter.to(getIntent().getStringExtra(SigneInPresenter.YEAR)));
+            viewModel.getUserView().setEmail(getIntent().getStringExtra(SigneInPresenter.EMAIL));
+            viewModel.getUserView().setPassword(getIntent().getStringExtra(SigneInPresenter.PASSWORD));
         }
 
         setUser(viewModel.getUserView());

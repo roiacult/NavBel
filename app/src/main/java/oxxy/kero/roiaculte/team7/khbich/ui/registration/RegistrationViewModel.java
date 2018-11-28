@@ -3,6 +3,7 @@ package oxxy.kero.roiaculte.team7.khbich.ui.registration;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
+import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 
 public class RegistrationViewModel extends ViewModel {
 
@@ -11,6 +12,7 @@ public class RegistrationViewModel extends ViewModel {
 
     private int fragment;
     private LiveData<UserState> userState;
+    private LiveData<UserView> user;
 
 
     public RegistrationViewModel() {
@@ -31,5 +33,13 @@ public class RegistrationViewModel extends ViewModel {
 
     public void setUserState(LiveData<UserState> userState) {
         this.userState = userState;
+    }
+
+    public LiveData<UserView> getUser() {
+        return user;
+    }
+
+    public void setUser(LiveData<UserView> user) {
+        this.user = user;
     }
 }

@@ -2,6 +2,8 @@ package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
 import android.text.TextUtils;
 
+import java.util.Calendar;
+
 import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.observers.DisposableCompletableObserver;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
@@ -31,6 +33,7 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
             return;
         }
 
+        viewModel.getUserView().setDate(Calendar.getInstance().getTime());
         repo.SaveUserRemote(viewModel.getUserView(),new SaveUserObserver());
     }
 

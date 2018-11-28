@@ -61,4 +61,9 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
                 .subscribeWith(observer);
     }
+
+    @Override
+    public LiveData<UserView> login(String mail, String password, DisposableObserver<User> observer) {
+        return null;
+    }
 }
