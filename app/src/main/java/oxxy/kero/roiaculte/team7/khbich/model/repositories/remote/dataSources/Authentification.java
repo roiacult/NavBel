@@ -14,10 +14,12 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.functions.Action;
 import oxxy.kero.roiaculte.team7.khbich.Utils.KeyCrypting;
+import oxxy.kero.roiaculte.team7.khbich.Utils.UserConverter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao.RemoteDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.exeptions.UserNotRegistred;
+import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,12 +32,12 @@ public class Authentification {
     public Authentification(Retrofit retrofit) {
         this.dao = retrofit.create(RemoteDao.class);
     }
-    public Completable SignUpUser(final User user) {
+    public Completable SignUpUser(final UserView user) {
          final String Key  = KeyCrypting.CrypteIt();
          return Completable.create(new CompletableOnSubscribe() {
              @Override
              public void subscribe(final CompletableEmitter emitter) throws Exception {
-                 dao.saveUser(user, Key).enqueue(new Callback<String>() {
+                 dao.saveUser(UserConverter.fromViewToRemote(user), Key).enqueue(new Callback<String>() {
                      @Override
                      public void onResponse(Call<String> call, Response<String> response) {
                          Log.d(TAG, "onResponse:  entered onREsponse"+response.body());

@@ -16,6 +16,7 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.sharedReference.MainSharedReference;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 
 public class AuthentificationImpl extends BasRepository implements AuthentificationRepository {
     private Authentification auth ;
@@ -29,12 +30,12 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     }
 
     @Override
-    public void SaveUserRemote(User user, DisposableCompletableObserver observer) {
+    public void SaveUserRemote(final UserView user, DisposableCompletableObserver observer) {
         //todo dont forget to add a sign out
         executeCompletable(auth.SignUpUser(user).andThen(Completable.fromAction(new Action() {
                     @Override
                     public void run() throws Exception {
-                        preference.SaveUser();
+                        preference.LogUserIn(user);
                     }
                 }))
                 , observer);
