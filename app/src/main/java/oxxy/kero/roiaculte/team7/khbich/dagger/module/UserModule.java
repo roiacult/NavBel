@@ -25,8 +25,8 @@ public class UserModule {
     }
 
     @Provides @PerActivity
-    ContractSaveInfo.PRESENTER provideSaveInfo(){
-        return  new SaveInfoPresenter();
+    ContractSaveInfo.PRESENTER provideSaveInfo(AuthentificationRepository repo){
+        return  new SaveInfoPresenter(repo);
     }
 
 }

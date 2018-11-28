@@ -3,6 +3,7 @@ package oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn;
 import android.content.Intent;
 import android.text.TextUtils;
 import androidx.lifecycle.ViewModelProviders;
+import oxxy.kero.roiaculte.team7.khbich.Utils.YearConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
@@ -11,6 +12,8 @@ import oxxy.kero.roiaculte.team7.khbich.ui.registration.RegistrationViewModel;
 import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfo;
 
 public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> implements ContractSignIn.PRESENTER {
+
+    public static String YEAR = "year";
 
     private ContractSignIn.VIEW view;
     private RegistrationViewModel viewModel;
@@ -81,7 +84,10 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                     break;
 
                 default: //todo start save info activity
-                    getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),SaveInfo.class));
+                    Intent intent = new Intent(getView().getBaseActivity(),SaveInfo.class);
+                    intent.putExtra(YEAR,YearConverter.from(userState));
+                    getView().getBaseActivity().startActivity(intent);
+                    getView().getBaseActivity().finish();
             }
         }
 

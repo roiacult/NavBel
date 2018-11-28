@@ -8,7 +8,7 @@ public class SaveInfoViewModel extends ViewModel {
     private UserView userView;
 
     public UserView getUserView() {
-        if (userView == null) userView = new UserView();
+        if(userView == null) userView = new UserView();
         return userView;
     }
 
