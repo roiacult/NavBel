@@ -13,6 +13,7 @@ import oxxy.kero.roiaculte.team7.khbich.MainActivity;
 import oxxy.kero.roiaculte.team7.khbich.MyApp;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.dagger.module.AppModule;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -25,5 +26,6 @@ public interface AppComponent {
     Retrofit retrofit();
     OkHttpClient okhttpClient();
     Gson gson();
+    AuthentificationRepository getAuthRepo();
 
 }

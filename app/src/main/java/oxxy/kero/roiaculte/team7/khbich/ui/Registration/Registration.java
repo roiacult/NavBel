@@ -78,7 +78,15 @@ public class Registration  extends BaseActivity {
 
 
     public void loadLogin(){
+        if(login  == null) login = Login.getInstance();
 
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_activity_framelayout,login)
+                .addToBackStack("login_fragment")
+                .commit();
+
+        viewModel.setFragment(RegistrationViewModel.FRAGMENT_LOG_IN);
     }
 
     public RegistrationViewModel getViewModel() {
