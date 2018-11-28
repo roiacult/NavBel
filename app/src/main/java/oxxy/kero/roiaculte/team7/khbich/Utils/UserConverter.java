@@ -1,5 +1,6 @@
 package oxxy.kero.roiaculte.team7.khbich.Utils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
@@ -37,10 +38,22 @@ public class UserConverter {
                 +String.valueOf(date.getMinutes())+":"+String.valueOf(date.getSeconds());
     }
     public static User fromViewToRemote(UserView userView) {
-        return new User("\""+userView.getName()+"\"","\""+userView.getEmail()+"\""
-        , "\""+userView.getPassword()+"\"", "\""+userView.getPassword()+"\"",
+        return new User("\""+userView.getName()+" "+userView.getPrename()+"\"","\""+userView.getEmail()+"\""
+        , "\""+userView.getPassword()+"\"", "\""+userView.getPicture()+"\"",
                 "\""+fromDate(userView.getDate())+"\"", "\""+froUserState(userView.getYear())+"\"",
                 "\""+String.valueOf(userView.getPoints())+"\"", "\""+userView.getQsolved()+"\"",
                 "\""+String.valueOf(userView.getLevel())+"\"") ;
+    }
+    public static  UserView toView(User user){
+        int nameLength= user.getName().length();
+        return new UserView(user.getName().substring(1 , user.getName().length()-1),
+                            user.getEmail().substring(1, user.getName().length()-1),
+                          user.getPicture().substring(1, user.getPicture().length()-1),
+                          user.getPassword().substring(1, user.getPassword().length()-1),
+                         UserConverter.fromInt(Integer.parseInt(user.getYear().substring(1, user.getYear().length()-1)))
+                                 , Integer.parseInt(user.getPoints().substring(1, user.getPoints().length()-1)),
+                Calendar.getInstance().getTime(),user.getQsolved().substring(1, user.getQsolved().length()-1),
+                Integer.parseInt(user.getLevel().substring(1, user.getLevel().length()-1))
+                );
     }
 }

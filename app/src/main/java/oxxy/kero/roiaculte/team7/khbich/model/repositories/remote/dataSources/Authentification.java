@@ -33,46 +33,46 @@ public class Authentification {
     public Authentification(Retrofit retrofit) {
         this.dao = retrofit.create(RemoteDao.class);
     }
-    public Completable signUpUsere(final User user){
-        final String Key  = KeyCrypting.CrypteIt();
-        return Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(final CompletableEmitter emitter) throws Exception {
-                 dao.saveUser(user, Key).enqueue(new Callback<String>() {
-                     @Override
-                     public void onResponse(Call<String> call, Response<String> response) {
-                         Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
-                         if(!emitter.isDisposed()){
-                             if(response.body().equals("1")){
-                                 emitter.onComplete();
-                             }else {
-                                 emitter.onError(new UserNotRegistred());
-                             }
-                         }
-                     }
-
-                     @Override
-                     public void onFailure(Call<String> call, Throwable t) {
-                         if(!emitter.isDisposed()){
-                             emitter.onError(t);
-                         }
-                     }
-                 });
-            }
-        });
-    }
+//    public Completable signUpUsere(final User user){
+//        final String Key  = KeyCrypting.CrypteIt();
+//        return Completable.create(new CompletableOnSubscribe() {
+//            @Override
+//            public void subscribe(final CompletableEmitter emitter) throws Exception {
+//                 dao.saveUser(user, Key).enqueue(new Callback<String>() {
+//                     @Override
+//                     public void onResponse(Call<String> call, Response<String> response) {
+//                         Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
+//                         if(!emitter.isDisposed()){
+//                             if(response.body().equals("1")){
+//                                 emitter.onComplete();
+//                             }else {
+//                                 emitter.onError(new UserNotRegistred());
+//                             }
+//                         }
+//                     }
+//
+//                     @Override
+//                     public void onFailure(Call<String> call, Throwable t) {
+//                         if(!emitter.isDisposed()){
+//                             emitter.onError(t);
+//                         }
+//                     }
+//                 });
+//            }
+//        });
+//    }
 
     public Completable SignUpUser(final UserView user) {
          final String Key  = KeyCrypting.CrypteIt();
          return Completable.create(new CompletableOnSubscribe() {
              @Override
              public void subscribe(final CompletableEmitter emitter) throws Exception {
-                 dao.saveUser(UserConverter.fromViewToRemote(user), Key).enqueue(new Callback<String>() {
+                 dao.saveUser(UserConverter.fromViewToRemote(user), Key).enqueue(new Callback<Message>() {
                      @Override
-                     public void onResponse(Call<String> call, Response<String> response) {
+                     public void onResponse(Call<Message> call, Response<Message> response) {
                          Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
                           if(!emitter.isDisposed()){
-                              if(response.body().equals("1")){
+                              if(response.body().getResponse().equals("1")){
                                   emitter.onComplete();
                               }else {
                                   emitter.onError(new UserNotRegistred());
@@ -80,7 +80,7 @@ public class Authentification {
                           }
                      }
                      @Override
-                     public void onFailure(Call<String> call, Throwable t) {
+                     public void onFailure(Call<Message> call, Throwable t) {
                        if(!emitter.isDisposed()){
                            emitter.onError(t);
                        }
@@ -115,11 +115,11 @@ public class Authentification {
     }
 
 
-    public Observable<User> loginUser(final String mail , final String password) {
+    public Observable<UserView> loginUser(final String mail , final String password) {
         final String Key = KeyCrypting.CrypteIt();
-        return Observable.create(new ObservableOnSubscribe<User>() {
+        return Observable.create(new ObservableOnSubscribe<UserView>() {
             @Override
-            public void subscribe(final ObservableEmitter<User> emitter) throws Exception {
+            public void subscribe(final ObservableEmitter<UserView> emitter) throws Exception {
                 dao.loginUser(mail, password, Key).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
@@ -131,7 +131,7 @@ public class Authentification {
                                     Log.d(TAG, "onResponse: errroooorr");
                                     //todo add error password false
                                 }
-                                emitter.onNext(response.body());
+                                emitter.onNext(UserConverter.toView(response.body()));
                                 emitter.onComplete();
                             }
 

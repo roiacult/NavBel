@@ -16,7 +16,7 @@ public interface AuthentificationRepository {
 
      LiveData<Boolean> isUserLoggedIn();
 
-     void  LogUserIn(String mail, String password, DisposableObserver<User> observer);
+     void  LogUserIn(String mail, String password, DisposableObserver<UserView> observer);
 
-     LiveData<UserView> login(String mail, String password, DisposableObserver<User> observer);
+     LiveData<UserView> login(String mail, String password);
 }

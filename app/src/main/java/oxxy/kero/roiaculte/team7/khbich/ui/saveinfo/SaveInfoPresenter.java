@@ -1,6 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -46,6 +47,8 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
 
         @Override
         public void onError(Throwable e) {
+            Log.d("errr", "onError: "+ e.getMessage());
+            e.printStackTrace();
             getView().showToast("Somthing went wrong !!");
         }
     }

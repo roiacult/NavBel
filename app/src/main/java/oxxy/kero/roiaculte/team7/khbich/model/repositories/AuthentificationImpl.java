@@ -57,13 +57,13 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     }
 
     @Override
-    public void LogUserIn(String mail, String password, DisposableObserver<User> observer) {
+    public void LogUserIn(String mail, String password, DisposableObserver<UserView> observer) {
         auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
                 .subscribeWith(observer);
     }
 
     @Override
-    public LiveData<UserView> login(String mail, String password, DisposableObserver<User> observer) {
-        return null;
+    public LiveData<UserView> login(String mail, String password) {
+        return convertToLiveData(auth.loginUser(mail, password));
     }
 }

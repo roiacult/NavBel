@@ -48,21 +48,27 @@ public class MainActivity extends BaseActivity {
         UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
                 "nopassword", UserState.USER_2CPI,250, Calendar.getInstance().getTime()
                 , "qsolved", 12);
-        repository.SaveUserRemote(userView, new DisposableCompletableObserver() {
-            @Override
-            public void onComplete() {
-                Log.d(TAG, "onComplete: ");
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-        Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
-        Log.d(TAG, "onFailure: "+e.getMessage());
-        Log.d(TAG, "onFailure: "+e.toString());
-               }
-        });
+         User user = new User("\"akram\"","\"adldldld\"", "\"lkjhgfghjk\"", "\"mlkjhgftyui\"",
+                 "\"hzhzhzh\"", "\"24\"","\"200\"", "\"qsolbed\"", "\"15\"");
+         UserView view = UserConverter.toView(user);
+        Log.d(TAG, "onCreate: "+view.getName());
+        Log.d(TAG, "onCreate: "+String.valueOf(view.getPoints()));
+        Log.d(TAG, "onCreate: "+String.valueOf(view.getLevel()));
+//        repository.SaveUserRemote(userView, new DisposableCompletableObserver() {
+//            @Override
+//            public void onComplete() {
+//                Log.d(TAG, "onComplete: ");
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                e.printStackTrace();
+//        Log.d(TAG, "onFailure: "+e.getLocalizedMessage());
+//        Log.d(TAG, "onFailure: "+e.getMessage());
+//        Log.d(TAG, "onFailure: "+e.toString());
+//               }
+//        });
 
     }
 
