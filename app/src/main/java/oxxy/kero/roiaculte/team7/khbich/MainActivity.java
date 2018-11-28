@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+getApplicationComponent().inject(this);
         User user = new User("\"mohamed\"", "\"m.slamat@esi-sba.dz\"", "\"hello\"", "\"picture\"",
                 "\"hellooow\""
                 , "\"2cpi\"", "\"150\"", "\"sdfghj\"", "\"12\"");
