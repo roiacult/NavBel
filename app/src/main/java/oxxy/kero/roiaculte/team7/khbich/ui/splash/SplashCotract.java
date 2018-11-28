@@ -7,11 +7,10 @@ public class SplashCotract {
 
     interface VIEW extends MvpView{
 
-        void loadMain();
-        void loadSignIn();
 
     }
-    interface PRESENTER extends MvpBasePresenter<VIEW>{
-
+    public interface PRESENTER extends MvpBasePresenter<VIEW>{
+        void loadMain();
+        void loadSignIn();
     }
 }

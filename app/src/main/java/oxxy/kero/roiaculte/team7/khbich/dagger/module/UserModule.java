@@ -10,6 +10,8 @@ import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SigneInPresenter;
 import oxxy.kero.roiaculte.team7.khbich.dagger.PerActivity;
 import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.ContractSaveInfo;
 import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfoPresenter;
+import oxxy.kero.roiaculte.team7.khbich.ui.splash.SplashCotract;
+import oxxy.kero.roiaculte.team7.khbich.ui.splash.SplashPresnter;
 
 @Module
 public class UserModule {
@@ -28,5 +30,6 @@ public class UserModule {
     ContractSaveInfo.PRESENTER provideSaveInfo(AuthentificationRepository repo){
         return  new SaveInfoPresenter(repo);
     }
+
 
 }

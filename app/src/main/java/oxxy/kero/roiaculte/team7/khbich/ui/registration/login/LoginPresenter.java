@@ -1,10 +1,13 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.registration.login;
 
+import android.content.Intent;
 import android.text.TextUtils;
 
 import androidx.lifecycle.ViewModelProviders;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
+import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.Registration;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.RegistrationViewModel;
 
@@ -37,7 +40,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
             return;
         }
 
-//        viewModel.setUser(repo.login(getView().getEmail(),getView().getPassword(),new LoginObserver()));
+        viewModel.setUser(repo.login(getView().getEmail(),getView().getPassword()));
+        viewModel.getUser().observe(getView().getBaseActivity(),new LoginObserver());
 
     }
 
@@ -45,4 +49,16 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
     public void onCreatAcountCliked() {
         ((Registration)getView().getBaseActivity()).removeRegistreAndShowLogin();
     }
+
+    private class LoginObserver implements androidx.lifecycle.Observer<UserView> {
+
+        @Override
+        public void onChanged(UserView userView) {
+            //TODO save user local
+//            repo.(userView);
+            getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
+            getView().getBaseActivity().finish();
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.observers.DisposableCompletableObserver;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
 
 public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> implements ContractSaveInfo.PRESENTER {
 
@@ -43,6 +45,8 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
         @Override
         public void onComplete() {
             //TODO open main
+            getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
+            getView().getBaseActivity().finish();
         }
 
         @Override
