@@ -1,12 +1,14 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import androidx.lifecycle.ViewModelProviders;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Registration;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.RegistrationViewModel;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.Registration;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.RegistrationViewModel;
+import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfo;
 
 public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> implements ContractSignIn.PRESENTER {
 
@@ -57,13 +59,31 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+    }
+
     private class USerStateObserver implements androidx.lifecycle.Observer<UserState> {
 
         @Override
         public void onChanged(UserState userState) {
-            if(userState ==UserState.USER_DONT_EXISTE){
-                getView().showMessage("User ! exist");
-            }//todo continu
+
+            getView().showLoading(false);
+
+            switch (userState){
+                case USER_DONT_EXISTE :
+                    getView().showMessage("User ! exist");
+                    break;
+                case USER_ALREADY_REGISTRED:
+                    getView().showMessage("you are alredy registered");
+                    break;
+
+                default: //todo start save info activity
+                    getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),SaveInfo.class));
+            }
         }
+
     }
 }

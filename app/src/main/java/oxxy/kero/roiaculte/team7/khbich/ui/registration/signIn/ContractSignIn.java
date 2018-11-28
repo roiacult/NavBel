@@ -1,10 +1,8 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn;
 
 
-import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.base.MvpBasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.base.MvpView;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Registration;
 
 public class ContractSignIn {
 

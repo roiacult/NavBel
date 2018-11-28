@@ -1,7 +1,6 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration.login;
 
 
-import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.base.MvpBasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.base.MvpView;
 

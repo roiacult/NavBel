@@ -3,11 +3,13 @@ package oxxy.kero.roiaculte.team7.khbich.dagger.module;
 import dagger.Module;
 import dagger.Provides;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login.LoginContract;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login.LoginPresenter;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn.ContractSignIn;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn.SigneInPresenter;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.LoginContract;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.LoginPresenter;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.ContractSignIn;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SigneInPresenter;
 import oxxy.kero.roiaculte.team7.khbich.dagger.PerActivity;
+import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.ContractSaveInfo;
+import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfoPresenter;
 
 @Module
 public class UserModule {
@@ -18,8 +20,13 @@ public class UserModule {
     }
 
     @Provides @PerActivity
-    LoginContract.PRESENTER provdeLogin(){
-        return new LoginPresenter();
+    LoginContract.PRESENTER provdeLogin(AuthentificationRepository repo){
+        return new LoginPresenter(repo);
+    }
+
+    @Provides @PerActivity
+    ContractSaveInfo.PRESENTER provideSaveInfo(){
+        return  new SaveInfoPresenter();
     }
 
 }

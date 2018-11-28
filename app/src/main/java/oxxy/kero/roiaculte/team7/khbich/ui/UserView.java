@@ -9,6 +9,7 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 
 public class UserView {
     private String name ;
+    private String prename;
     private String email ;
     private String picture ;
     private String password;
@@ -101,5 +102,13 @@ public class UserView {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setPrename(String prename) {
+        this.prename = prename;
+    }
+
+    public String getPrename() {
+        return prename;
     }
 }

@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

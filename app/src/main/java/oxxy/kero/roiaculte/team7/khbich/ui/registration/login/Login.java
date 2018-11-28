@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration.login;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +29,23 @@ public class Login  extends BaseFragment implements LoginContract.VIEW {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding  = DataBindingUtil.inflate(inflater,R.layout.login,container, false);
+
+        getComponent().inject(this);
+        presenter.onAttach(this);
+
+        binding.loginSignein.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onCreatAcountCliked();
+            }
+        });
+
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onLoginCliked();
+            }
+        });
 
         return binding.getRoot();
     }

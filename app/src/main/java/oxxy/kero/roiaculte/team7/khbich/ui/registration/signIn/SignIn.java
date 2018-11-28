@@ -1,4 +1,4 @@
-package oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn;
+package oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

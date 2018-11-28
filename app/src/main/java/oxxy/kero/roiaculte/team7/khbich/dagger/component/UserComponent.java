@@ -1,8 +1,8 @@
 package oxxy.kero.roiaculte.team7.khbich.dagger.component;
 
 import dagger.Component;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.Login.Login;
-import oxxy.kero.roiaculte.team7.khbich.ui.Registration.signIn.SignIn;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.Login;
+import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SignIn;
 import oxxy.kero.roiaculte.team7.khbich.dagger.PerActivity;
 import oxxy.kero.roiaculte.team7.khbich.dagger.module.ActivityModule;
 import oxxy.kero.roiaculte.team7.khbich.dagger.module.UserModule;
