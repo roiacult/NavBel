@@ -27,6 +27,20 @@ public class SignIn extends BaseFragment implements ContractSignIn.VIEW {
         getComponent().inject(this);
         presenter.onAttach(this);
 
+        binding.signeinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onSubmitCliked();
+            }
+        });
+
+        binding.signeinLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onLoginCliked();
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -49,4 +63,6 @@ public class SignIn extends BaseFragment implements ContractSignIn.VIEW {
     public void showLoading(boolean visible) {
         binding.progressBar.setVisibility(visible ?View.VISIBLE : View.GONE);
     }
+
+
 }
