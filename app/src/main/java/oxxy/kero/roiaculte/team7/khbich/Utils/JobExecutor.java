@@ -14,7 +14,7 @@ import io.reactivex.annotations.NonNull;
 public class JobExecutor  implements Executor {
     private final ThreadPoolExecutor threadPoolExecutor;
 
-
+    @Inject
     public JobExecutor() {
         this.threadPoolExecutor = new ThreadPoolExecutor(3, 5, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>()
         , new JobThreadFactory());

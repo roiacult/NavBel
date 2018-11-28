@@ -8,13 +8,14 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RemoteDao {
-    @POST("index.php?skey={skey}&op=signin")
-    Call<JSONObject> saveUser(@Body User user, @Path("skey") String Skey ) ;
+    @POST("index.php?op=signin")
+    Call<String> saveUser(@Body User user, @Query("skey") String Skey ) ;
 
-    @GET("index.php?skey={skey}&op=check&email={mail}")
-    Call<String>  checkUser(@Path("mail") String email , @Path("skey") String Skey);
+    @GET("index.php?p=check&")
+    Call<String>  checkUser(@Query("email") String email , @Query("skey") String Skey);
 
 
 
