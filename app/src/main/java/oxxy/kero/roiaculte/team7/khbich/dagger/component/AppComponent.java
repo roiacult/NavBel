@@ -21,7 +21,6 @@ public interface AppComponent {
     void inject(BaseActivity activity );
     void inject(MainActivity activity);
 
-
     Context context();
     Retrofit retrofit();
     OkHttpClient okhttpClient();
