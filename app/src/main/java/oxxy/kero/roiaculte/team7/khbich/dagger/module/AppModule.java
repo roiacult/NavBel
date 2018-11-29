@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 import javax.inject.Singleton;
 
+import androidx.room.PrimaryKey;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -15,6 +17,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import oxxy.kero.roiaculte.team7.khbich.MyApp;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.AuthentificationImpl;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalDatabase;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.sharedReference.MainSharedReference;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
@@ -52,6 +55,11 @@ public class AppModule {
     @Provides @Singleton
     SharedPreferences provideSharedPreferences(Context context){
         return context.getSharedPreferences(SharedPreferenceName, Context.MODE_PRIVATE);
+    }
+    @Provides
+    @Singleton
+    LocalDatabase database(Context context){
+        return LocalDatabase.getDatabase(context);
     }
     @Provides @Singleton
     Context getApplicationContext(){

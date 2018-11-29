@@ -3,7 +3,10 @@ package oxxy.kero.roiaculte.team7.khbich.ui.registration.login;
 import android.content.Intent;
 import android.text.TextUtils;
 
+
 import androidx.lifecycle.ViewModelProviders;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
@@ -40,8 +43,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
             return;
         }
 
-        viewModel.setUser(repo.login(getView().getEmail(),getView().getPassword()));
-        viewModel.getUser().observe(getView().getBaseActivity(),new LoginObserver());
+
+
+        repo.login(getView().getEmail(),getView().getPassword(),new LoginObserver());
 
     }
 
@@ -50,19 +54,31 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
         ((Registration)getView().getBaseActivity()).removeRegistreAndShowLogin();
     }
 
-    private class LoginObserver implements androidx.lifecycle.Observer<UserView> {
-
+    private class LoginObserver extends DisposableObserver<UserView> {
         @Override
-        public void onChanged(UserView userView) {
+        public void onNext(UserView userView) {
+
             if (userView == null){
                 getView().showToast("your password is  not correct");
                 return;
             }
-
             repo.AddUserLocal(userView);
+            if (getView()!= null) {
 
-            getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
-            getView().getBaseActivity().finish();
+                getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(), Main.class));
+                getView().getBaseActivity().finish();
+                repo.AddUserLocal(userView);
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getView().showMessage("passsword or email is incorrect");
+        }
+
+        @Override
+        public void onComplete() {
+
         }
     }
 

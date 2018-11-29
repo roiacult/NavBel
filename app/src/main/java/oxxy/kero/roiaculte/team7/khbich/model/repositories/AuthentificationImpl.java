@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
-import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
@@ -51,15 +50,12 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         return mutableLiveData;
     }
 
-//    @Override
-//    public void LogUserIn(String mail, String password, DisposableObserver<UserView> observer) {
-//        auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
-//                .subscribeWith(observer);
-//    }
-
     @Override
-    public void  login(String mail, String password, DisposableObserver<UserView> observer) {
-           this.disposable.add(auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(jobExecutor)).subscribeWith(observer));
+    public void login(String mail, String password, DisposableObserver<UserView> observer) {
+        auth.loginUser(mail, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.from(new JobExecutor()))
+                .subscribeWith(observer);
     }
 
     @Override
@@ -80,6 +76,5 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     @Override
     public void SignUserOut(DisposableCompletableObserver observer) {
         //todo when the user sign out we will remove all his data *.*
-
     }
 }

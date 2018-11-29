@@ -1,14 +1,12 @@
 package oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao;
 
-import org.json.JSONObject;
-
 import oxxy.kero.roiaculte.team7.khbich.model.models.Message;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.TestsRemote;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RemoteDao {
@@ -22,4 +20,10 @@ public interface RemoteDao {
     Call<User> loginUser(@Query("email") String mail , @Query("password") String password, @Query("skey")String Skey);
     @POST("index.php?op=update")
     Call<Message> updateUserData(@Body User user , @Query("skey") String Skey);
+
+
+
+
+    @GET("index.php?op=tests")
+    Call<TestsRemote> getTests(@Query("year") String year , @Query("skey") String Key);
 }

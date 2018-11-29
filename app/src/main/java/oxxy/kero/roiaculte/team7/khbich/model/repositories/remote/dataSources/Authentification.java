@@ -33,34 +33,6 @@ public class Authentification {
     public Authentification(Retrofit retrofit) {
         this.dao = retrofit.create(RemoteDao.class);
     }
-//    public Completable signUpUsere(final User user){
-//        final String Key  = KeyCrypting.CrypteIt();
-//        return Completable.create(new CompletableOnSubscribe() {
-//            @Override
-//            public void subscribe(final CompletableEmitter emitter) throws Exception {
-//                 dao.saveUser(user, Key).enqueue(new Callback<Message>() {
-//                     @Override
-//                     public void onResponse(Call<Message> call, Response<Message> response) {
-//                         Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
-//                         if(!emitter.isDisposed()){
-//                             if(response.body().getResponse().equals("1")){
-//                                 emitter.onComplete();
-//                             }else {
-//                                 emitter.onError(new UserNotRegistred());
-//                             }
-//                         }
-//                     }
-//
-//                     @Override
-//                     public void onFailure(Call<Message> call, Throwable t) {
-//                         if(!emitter.isDisposed()){
-//                             emitter.onError(t);
-//                         }
-//                     }
-//                 });
-//            }
-//        });
-//    }
 
     public Completable SignUpUser(final UserView user) {
          final String Key  = KeyCrypting.CrypteIt();
@@ -131,7 +103,6 @@ public class Authentification {
                             if (!emitter.isDisposed()) {
                                 if (Integer.parseInt(response.body().getYear()) == -1) {
                                     Log.d(TAG, "onResponse: errroooorr");
-                                    //todo handle the json vide *.*  this post is util https://proandroiddev.com/concise-error-handling-with-livedata-and-retrofit-15937ceb555b
                                     emitter.onNext(null);
                                     emitter.onComplete();
                                 }else{
