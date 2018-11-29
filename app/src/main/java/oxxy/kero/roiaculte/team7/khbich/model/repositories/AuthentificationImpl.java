@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MutableLiveData;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
@@ -57,8 +58,8 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
 //    }
 
     @Override
-    public LiveData<UserView> login(String mail, String password) {
-        return convertToLiveData(auth.loginUser(mail, password));
+    public void  login(String mail, String password, DisposableObserver<UserView> observer) {
+           this.disposable.add(auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(jobExecutor)).subscribeWith(observer));
     }
 
     @Override

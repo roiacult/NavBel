@@ -129,7 +129,7 @@ public class Authentification {
                             Log.d(TAG, "onResponse: " + response.toString());
                             Log.d(TAG, "onResponse: "+response.body().getYear());
                             if (!emitter.isDisposed()) {
-                                if (response.body().getYear() == null) {
+                                if (Integer.parseInt(response.body().getYear()) == -1) {
                                     Log.d(TAG, "onResponse: errroooorr");
                                     //todo handle the json vide *.*  this post is util https://proandroiddev.com/concise-error-handling-with-livedata-and-retrofit-15937ceb555b
                                     emitter.onNext(null);
@@ -145,6 +145,7 @@ public class Authentification {
                     }
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        emitter.onError(t);
                         Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
                         Log.d(TAG, "onFailure: "+t.getMessage());
                         t.printStackTrace();

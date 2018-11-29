@@ -14,8 +14,8 @@ import io.reactivex.schedulers.Schedulers;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 
 public class BasRepository {
-    private JobExecutor jobExecutor ;
-    private CompositeDisposable disposable;
+    protected JobExecutor jobExecutor ;
+    protected CompositeDisposable disposable;
 
     public BasRepository(JobExecutor jobExecutor) {
         this.disposable = new CompositeDisposable();

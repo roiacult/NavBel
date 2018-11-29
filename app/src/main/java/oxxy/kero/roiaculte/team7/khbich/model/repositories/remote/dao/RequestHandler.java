@@ -20,7 +20,7 @@ public abstract  class RequestHandler<R> {
 
             @Override
             protected void handleError(retrofit2.Response<Response<R>> response) {
-//                dataWrapper.setApiException(ApiErrorHandler.getErrorData(response)); set exception for the right one
+//                dataWrapper.setApiException(ApiErrorHandler.getErrorData(response));
                 liveData.setValue(dataWrapper);
             }
 
