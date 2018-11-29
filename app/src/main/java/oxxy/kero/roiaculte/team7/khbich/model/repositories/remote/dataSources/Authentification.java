@@ -33,41 +33,43 @@ public class Authentification {
     public Authentification(Retrofit retrofit) {
         this.dao = retrofit.create(RemoteDao.class);
     }
-//    public Completable signUpUsere(final User user){
-//        final String Key  = KeyCrypting.CrypteIt();
-//        return Completable.create(new CompletableOnSubscribe() {
-//            @Override
-//            public void subscribe(final CompletableEmitter emitter) throws Exception {
-//                 dao.saveUser(user, Key).enqueue(new Callback<String>() {
-//                     @Override
-//                     public void onResponse(Call<String> call, Response<String> response) {
-//                         Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
-//                         if(!emitter.isDisposed()){
-//                             if(response.body().equals("1")){
-//                                 emitter.onComplete();
-//                             }else {
-//                                 emitter.onError(new UserNotRegistred());
-//                             }
-//                         }
-//                     }
-//
-//                     @Override
-//                     public void onFailure(Call<String> call, Throwable t) {
-//                         if(!emitter.isDisposed()){
-//                             emitter.onError(t);
-//                         }
-//                     }
-//                 });
-//            }
-//        });
-//    }
+    public Completable signUpUsere(final User user){
+        final String Key  = KeyCrypting.CrypteIt();
+        return Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(final CompletableEmitter emitter) throws Exception {
+                 dao.saveUser(user, Key).enqueue(new Callback<Message>() {
+                     @Override
+                     public void onResponse(Call<Message> call, Response<Message> response) {
+                         Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
+                         if(!emitter.isDisposed()){
+                             if(response.body().getResponse().equals("1")){
+                                 emitter.onComplete();
+                             }else {
+                                 emitter.onError(new UserNotRegistred());
+                             }
+                         }
+                     }
+
+                     @Override
+                     public void onFailure(Call<Message> call, Throwable t) {
+                         if(!emitter.isDisposed()){
+                             emitter.onError(t);
+                         }
+                     }
+                 });
+            }
+        });
+    }
 
     public Completable SignUpUser(final UserView user) {
          final String Key  = KeyCrypting.CrypteIt();
+        final User userz = UserConverter.fromViewToRemote(user);
+
          return Completable.create(new CompletableOnSubscribe() {
              @Override
              public void subscribe(final CompletableEmitter emitter) throws Exception {
-                 dao.saveUser(UserConverter.fromViewToRemote(user), Key).enqueue(new Callback<Message>() {
+                 dao.saveUser(userz, Key).enqueue(new Callback<Message>() {
                      @Override
                      public void onResponse(Call<Message> call, Response<Message> response) {
                          Log.d(TAG, "onResponse:  entered onREsponse"+response.body());
@@ -126,13 +128,18 @@ public class Authentification {
                         if (!emitter.isDisposed()) {
                             Log.d(TAG, "onResponse: " + response.message());
                             Log.d(TAG, "onResponse: " + response.toString());
+                            Log.d(TAG, "onResponse: "+response.body().getYear());
                             if (!emitter.isDisposed()) {
-                                if (response.body() == null) {
+                                if (response.body().getYear() == null) {
                                     Log.d(TAG, "onResponse: errroooorr");
-                                    //todo add error password false
+                                    //todo handle the json vide *.*  this post is util https://proandroiddev.com/concise-error-handling-with-livedata-and-retrofit-15937ceb555b
+                                    emitter.onNext(null);
+                                    emitter.onComplete();
+                                }else{
+                                    emitter.onNext(UserConverter.toView(response.body()));
+                                    emitter.onComplete();
                                 }
-                                emitter.onNext(UserConverter.toView(response.body()));
-                                emitter.onComplete();
+
                             }
 
                         }
@@ -140,9 +147,8 @@ public class Authentification {
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-                        if(!emitter.isDisposed()) {
-                            emitter.onError(t);
-                        }
+                        Log.d(TAG, "onFailure: "+t.getMessage());
+                        t.printStackTrace();
                     }
                 });
             }

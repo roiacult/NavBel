@@ -48,12 +48,40 @@ public class MainActivity extends BaseActivity {
         UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
                 "nopassword", UserState.USER_2CPI,250, Calendar.getInstance().getTime()
                 , "qsolved", 12);
-         User user = new User("\"akram\"","\"adldldld\"", "\"lkjhgfghjk\"", "\"mlkjhgftyui\"",
-                 "\"hzhzhzh\"", "\"24\"","\"200\"", "\"qsolbed\"", "\"15\"");
-         UserView view = UserConverter.toView(user);
-        Log.d(TAG, "onCreate: "+view.getName());
-        Log.d(TAG, "onCreate: "+String.valueOf(view.getPoints()));
-        Log.d(TAG, "onCreate: "+String.valueOf(view.getLevel()));
+         User user = new User("\"akram\"","\"a.boutouchent@esi-sba.dz\"", "\"nopassword\"", "\"picture\"",
+                 "\"2018-15-10 2.25.30\"", "\"2\"","\"250\"", "\"qsolbed\"", "\"12\"");
+           User user1 = UserConverter.fromViewToRemote(userView);
+//           authentification.SignUpUser(userView).subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableCompletableObserver() {
+//                    @Override
+//                    public void onComplete() {
+//                        Log.d(TAG, "onComplete: ");
+//                    }
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.d(TAG, "onError: "+e.getMessage());
+//                        e.printStackTrace();
+//                    }
+//                });
+//        Log.d(TAG, "onCreate: "+user.getYear());
+//        Log.d(TAG, "onCreate: "+user.getPicture());
+//        Log.d(TAG, "onCreate: "+user1.getQsolved());
+//        Log.d(TAG, "onCreate: "+user1.getEmail());
+//        Log.d(TAG, "onCreate: "+user1.getPoints());
+//        Log.d(TAG, "onCreate: "+user1.getLevel());
+//        Log.d(TAG, "onCreate: "+user1.getName());
+//        authentification.signUpUsere(user).subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableCompletableObserver() {
+//                    @Override
+//                    public void onComplete() {
+//                        Log.d(TAG, "onComplete: ");
+//                    }
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        Log.d(TAG, "onError: "+e.getMessage());
+//                        e.printStackTrace();
+//                    }
+//                });
 //        repository.SaveUserRemote(userView, new DisposableCompletableObserver() {
 //            @Override
 //            public void onComplete() {
