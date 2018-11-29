@@ -57,11 +57,6 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
                 .subscribeOn(Schedulers.from(new JobExecutor()))
                 .subscribeWith(observer);
     }
-//
-//    @Override
-//    public LiveData<UserView> login(String mail, String password) {
-//        return convertToLiveData(auth.loginUser(mail, password));
-//    }
 
     @Override
     public void AddUserLocal(UserView userView) {
@@ -81,6 +76,5 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     @Override
     public void SignUserOut(DisposableCompletableObserver observer) {
         //todo when the user sign out we will remove all his data *.*
-
     }
 }

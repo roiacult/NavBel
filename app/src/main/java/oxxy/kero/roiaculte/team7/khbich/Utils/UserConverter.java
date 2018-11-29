@@ -5,11 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import androidx.room.TypeConverter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 
 public class UserConverter {
+    @TypeConverter
     public static UserState fromInt(int userState){
         switch (userState){
             case -1 : return UserState.USER_ALREADY_REGISTRED;
@@ -22,6 +24,7 @@ public class UserConverter {
             default:return UserState.USER_DONT_EXISTE;
         }
     }
+    @TypeConverter
     public static int froUserState (UserState state){
         switch (state){
             case USER_DONT_EXISTE: return 0;
