@@ -1,7 +1,9 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +12,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,6 +23,8 @@ import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.databinding.SaveInfoBinding;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SigneInPresenter;
+
+import static oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfoPresenter.REQUEST_PERMITION;
 
 public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
 
@@ -68,10 +73,7 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
         binding.signeInImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CropImage.activity()
-                .setCropShape ( CropImageView.CropShape.OVAL )
-                .setAspectRatio(1,1 )
-                .start(SaveInfo.this);
+                presenter.startPickingImage();
             }
         });
     }
@@ -79,17 +81,19 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        presenter.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if(resultCode == RESULT_OK ){
+        presenter.onActivityResult(requestCode,resultCode,data);
+    }
 
-                if (result.getBitmap() == null) {
-                    showToast("Image is null");
-                    return;
-                }
-                viewModel.getUserView().setPicture(ImageUtil.convert(result.getBitmap()));
-            }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        presenter.onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+
+    @Override
+    public void requestStoragePermition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMITION);
         }
     }
 

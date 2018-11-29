@@ -1,10 +1,14 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.Calendar;
 
@@ -20,6 +24,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> implements ContractSaveInfo.PRESENTER {
 
+    public static final int REQUEST_PERMITION = 5;
     private SaveInfoViewModel viewModel;
     private AuthentificationRepository repo;
 
@@ -61,6 +66,29 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
             Log.d("errr", "onError: "+ e.getMessage());
             e.printStackTrace();
             getView().showToast("Somthing went wrong !!");
+        }
+    }
+
+    @Override
+    public void startPickingImage() {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M &&  getView().getBaseActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            getView().requestStoragePermition();
+            return;
+        }
+
+        CropImage.activity()
+                .setCropShape ( CropImageView.CropShape.OVAL )
+                .setAspectRatio(1,1 )
+                .start(getView().getBaseActivity());
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode==REQUEST_PERMITION){
+            if(grantResults.length>1 && grantResults[0]== PackageManager.PERMISSION_GRANTED &&grantResults[1]==PackageManager.PERMISSION_GRANTED){
+                startPickingImage();
+            }
         }
     }
 

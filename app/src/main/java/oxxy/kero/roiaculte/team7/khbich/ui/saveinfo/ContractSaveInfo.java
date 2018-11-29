@@ -15,10 +15,15 @@ public class ContractSaveInfo{
         String getPrenam();
         void setUser(UserView user);
         Bitmap getImage();
+        void requestStoragePermition();
     }
 
     public interface PRESENTER extends MvpBasePresenter<VIEW> {
         void onNextClicked();
         void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
+
+        void startPickingImage();
+
+        void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
     }
 }
