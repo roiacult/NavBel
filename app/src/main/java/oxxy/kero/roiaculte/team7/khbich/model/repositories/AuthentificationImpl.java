@@ -35,7 +35,6 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
 
     @Override
     public void SaveUserRemote(final UserView user, DisposableCompletableObserver observer) {
-        //todo dont forget to add a sign out
         executeCompletable(auth.SignUpUser(user)
                 , observer);
     }
@@ -75,5 +74,11 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     @Override
     public void UpdateDataUser(UserView userView, DisposableCompletableObserver observer) {
         executeCompletable(auth.updateUserData(userView), observer);
+    }
+
+    @Override
+    public void SignUserOut(DisposableCompletableObserver observer) {
+        //todo when the user sign out we will remove all his data *.*
+
     }
 }

@@ -56,8 +56,6 @@ public class MainActivity extends BaseActivity {
                 Log.d(TAG, "onError: "+e.getMessage());
             }
         });
-  //// todo   fekerni ntesti hadi
-
 //        UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
 //                "nopassword", UserState.USER_2CPI,250, Calendar.getInstance().getTime()
 //                , "qsolved", 12);

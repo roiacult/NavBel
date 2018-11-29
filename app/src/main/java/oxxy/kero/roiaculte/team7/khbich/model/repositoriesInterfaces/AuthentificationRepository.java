@@ -20,4 +20,5 @@ public interface AuthentificationRepository {
      void AddUserLocal (UserView userView);
      LiveData<UserView> getUserLocal();
      void UpdateDataUser(UserView userView, DisposableCompletableObserver observer);
+     void SignUserOut(DisposableCompletableObserver observer);
 }

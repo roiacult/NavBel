@@ -43,8 +43,7 @@ public class MainSharedReference {
          editor.putInt(USER_POINT, userView.getPoints());
          editor.putString(QSOLVED, userView.getQsolved());
          editor.putInt(LEVEL, userView.getLevel());
-         java.util.Date date  = Calendar.getInstance().getTime();
-         editor.putString(Date, UserConverter.fromDate(date));
+         editor.putString(Date, UserConverter.fromDate(userView.getDate()));
          editor.commit();
     }
     public void SaveUser(){
@@ -61,7 +60,9 @@ public class MainSharedReference {
                preferences.getString("USER_MAIL", ""), preferences.getString(USER_PICTURE, ""),
                preferences.getString(USER_PASSWORD, "password")
                , UserConverter.fromInt(preferences.getInt(USER_YEAR, 0)),
-               preferences.getInt(USER_POINT, 0), Calendar.getInstance().getTime(),preferences.getString(QSOLVED, "qsolved")
+               preferences.getInt(USER_POINT, 0),UserConverter.fromString( preferences.getString(Date, UserConverter
+               .fromDate(Calendar.getInstance().getTime())))
+               ,preferences.getString(QSOLVED, "qsolved")
                , preferences.getInt(LEVEL, 0)));
         return liveData;
                 //todo set correctly the date
