@@ -24,6 +24,7 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getComponent().inject(this) ;
 
         binding = DataBindingUtil.inflate(inflater,R.layout.profile,container,false);
         presenter.onAttach(this);

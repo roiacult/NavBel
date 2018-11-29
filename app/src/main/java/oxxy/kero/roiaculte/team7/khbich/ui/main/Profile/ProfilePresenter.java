@@ -13,16 +13,15 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
 
     public ProfilePresenter(AuthentificationRepository repo) {
         this.repo = repo;
-        viewModel = ViewModelProviders.of(getView().getBaseActivity()).get(MainViewModel.class);
-        viewModel.setUser(repo.getUserLocal());
 
-        viewModel.getUser().observe(getView().getBaseActivity(),new UserObserver());
     }
 
     @Override
     public void onAttach(ContractProfile.VIEW mvpView) {
         super.onAttach(mvpView);
-
+        viewModel = ViewModelProviders.of(getView().getBaseActivity()).get(MainViewModel.class);
+        viewModel.setUser(repo.getUserLocal());
+        viewModel.getUser().observe(getView().getBaseActivity(),new UserObserver());
     }
 
     private class UserObserver implements androidx.lifecycle.Observer<UserView> {

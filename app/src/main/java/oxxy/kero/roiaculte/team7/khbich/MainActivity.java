@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -45,12 +46,12 @@ public class MainActivity extends BaseActivity {
         getApplicationComponent().inject(this);
   //// todo   fekerni ntesti hadi
 
-        UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
-                "nopassword", UserState.USER_2CPI,250, Calendar.getInstance().getTime()
-                , "qsolved", 12);
-         User user = new User("\"akram\"","\"a.boutouchent@esi-sba.dz\"", "\"nopassword\"", "\"picture\"",
-                 "\"2018-15-10 2.25.30\"", "\"2\"","\"250\"", "\"qsolbed\"", "\"12\"");
-           User user1 = UserConverter.fromViewToRemote(userView);
+//        UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
+//                "nopassword", UserState.USER_2CPI,250, Calendar.getInstance().getTime()
+//                , "qsolved", 12);
+//         User user = new User("\"akram\"","\"a.boutouchent@esi-sba.dz\"", "\"nopassword\"", "\"picture\"",
+//                 "\"2018-15-10 2.25.30\"", "\"2\"","\"250\"", "\"qsolbed\"", "\"12\"");
+//           User user1 = UserConverter.fromViewToRemote(userView);
 //           authentification.SignUpUser(userView).subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
 //                .subscribeWith(new DisposableCompletableObserver() {
 //                    @Override

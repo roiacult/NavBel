@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.Utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -33,9 +35,18 @@ public class UserConverter {
         }
     }
     public static String fromDate(Date date ){
-        return String.valueOf(date.getYear()+1900)+"-"+String.valueOf(date.getMonth()+1)+"-"+
-                String.valueOf(date.getDay())+" "+String.valueOf(date.getHours())+"."
-                +String.valueOf(date.getMinutes())+"."+String.valueOf(date.getSeconds());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
+        return dateFormat.format(date);
+    }
+    public static Date fromString (String date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss");
+        Date dat=null ;
+        try {
+            dat= dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dat;
     }
     public static User fromViewToRemote(UserView userView) {
         return new User("\""+userView.getName()+(userView.getPrename()==null?"":" "+userView.getPrename())+"\"","\""+userView.getEmail()+"\""

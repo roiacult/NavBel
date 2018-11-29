@@ -41,7 +41,7 @@ public class Main extends BaseActivity {
                         if (profile == null) profile = new Profile();
                         getSupportFragmentManager().beginTransaction()
                                 .addToBackStack("profile")
-                                .add(R.id.main_container,profile);
+                                .add(R.id.main_container,profile).commit();
 
 
                         break;
