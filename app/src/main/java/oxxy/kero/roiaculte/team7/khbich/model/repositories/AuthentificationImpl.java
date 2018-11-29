@@ -68,7 +68,7 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     }
 
     @Override
-    public UserView getUserLocal() {
+    public LiveData<UserView> getUserLocal() {
         return preference.getUserViewLocal();
     }
 }

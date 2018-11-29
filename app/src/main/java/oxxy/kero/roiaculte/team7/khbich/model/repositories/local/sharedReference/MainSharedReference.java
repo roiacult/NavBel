@@ -7,7 +7,10 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import oxxy.kero.roiaculte.team7.khbich.Utils.UserConverter;
+import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 
 public class MainSharedReference {
@@ -52,13 +55,15 @@ public class MainSharedReference {
       return   preferences.getBoolean(IS_USER_LOGGED, false);
     }
 
-   public UserView getUserViewLocal(){
-        return new UserView(preferences.getString(USER_NAME, ""),
-                preferences.getString("USER_MAIL", ""), preferences.getString(USER_PICTURE, ""),
-              preferences.getString(USER_PASSWORD, "password")
-              , UserConverter.fromInt(preferences.getInt(USER_YEAR, 0)),
-                preferences.getInt(USER_POINT, 0), Calendar.getInstance().getTime(),preferences.getString(QSOLVED, "qsolved")
-        , preferences.getInt(LEVEL, 0));
+   public LiveData<UserView> getUserViewLocal(){
+       MutableLiveData<UserView> liveData= new MutableLiveData<>();
+       liveData.setValue( new UserView(preferences.getString(USER_NAME, ""),
+               preferences.getString("USER_MAIL", ""), preferences.getString(USER_PICTURE, ""),
+               preferences.getString(USER_PASSWORD, "password")
+               , UserConverter.fromInt(preferences.getInt(USER_YEAR, 0)),
+               preferences.getInt(USER_POINT, 0), Calendar.getInstance().getTime(),preferences.getString(QSOLVED, "qsolved")
+               , preferences.getInt(LEVEL, 0)));
+        return liveData;
                 //todo set correctly the date
    }
 }
