@@ -6,13 +6,16 @@ import javax.inject.Inject;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.Query;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 
 @Dao
 public interface TestDao {
-//    @Insert
-//    Observable<List<Test>> InsertFromRempte(List<Test> tests);
+    @Insert
+    Completable InsertFromRempte(List<Test> tests);
+     @Query("delete from Test")
+    void deleteTable();
 
 }
