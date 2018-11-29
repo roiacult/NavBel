@@ -55,11 +55,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
         @Override
         public void onChanged(UserView userView) {
             //TODO save user local
-
             if (userView == null){
                 getView().showToast("your password is  not correct");
                 return;
             }
+
+            repo.AddUserLocal(userView);
 
             getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
             getView().getBaseActivity().finish();

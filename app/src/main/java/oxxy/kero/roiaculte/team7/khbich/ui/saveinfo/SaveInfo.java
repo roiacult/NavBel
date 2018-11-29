@@ -1,8 +1,12 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import javax.inject.Inject;
 
@@ -10,11 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import oxxy.kero.roiaculte.team7.khbich.R;
+import oxxy.kero.roiaculte.team7.khbich.Utils.ImageUtil;
 import oxxy.kero.roiaculte.team7.khbich.Utils.YearConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.databinding.SaveInfoBinding;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
-import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SignIn;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.SigneInPresenter;
 
 public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
@@ -64,10 +68,29 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
         binding.signeInImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO startimage Cropper
-                
+                CropImage.activity()
+                .setCropShape ( CropImageView.CropShape.OVAL )
+                .setAspectRatio(1,1 )
+                .start(SaveInfo.this);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        presenter.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK ){
+
+                if (result.getBitmap() == null) {
+                    showToast("Image is null");
+                    return;
+                }
+                viewModel.getUserView().setPicture(ImageUtil.convert(result.getBitmap()));
+            }
+        }
     }
 
     @Override

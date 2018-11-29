@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.theartofdev.edmodo.cropper.CropImage;
+
 import java.util.Calendar;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import io.reactivex.observers.DisposableCompletableObserver;
+import oxxy.kero.roiaculte.team7.khbich.Utils.ImageUtil;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
+
+import static android.app.Activity.RESULT_OK;
 
 public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> implements ContractSaveInfo.PRESENTER {
 
@@ -45,6 +51,7 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
         @Override
         public void onComplete() {
             //TODO open main
+            repo.AddUserLocal(viewModel.getUserView());
             getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
             getView().getBaseActivity().finish();
         }
@@ -57,4 +64,13 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK && result.getBitmap() != null){
+                viewModel.getUserView().setPicture(ImageUtil.convert(result.getBitmap()));
+            }
+        }
+    }
 }
