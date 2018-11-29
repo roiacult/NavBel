@@ -44,6 +44,18 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getApplicationComponent().inject(this);
+        repository.UpdateDataUser(new UserView("Nikmok", "a", "picture", "password", UserState.USER_2CPI, 250, Calendar.getInstance().getTime(),
+                "qsolved", 12), new DisposableCompletableObserver() {
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: ");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, "onError: "+e.getMessage());
+            }
+        });
   //// todo   fekerni ntesti hadi
 
 //        UserView userView= new UserView("akram", "a.boutouchent@esi-sba.dz", "picture",
