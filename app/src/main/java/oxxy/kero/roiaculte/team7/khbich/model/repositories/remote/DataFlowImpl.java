@@ -15,13 +15,14 @@ import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalD
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.sharedReference.MainSharedReference;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.RemoteData;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification.TAG;
 
-public class DataFlowImpl {
+public class DataFlowImpl implements DataFlowRepository {
 
     private LocalData testDao ;
      private RemoteData data ;
@@ -34,36 +35,32 @@ public class DataFlowImpl {
         this.data = data;
         this.preferences= preferences;
     }
-    Completable UpdateDataBase(){
+    @Override
+    public Completable updateLOcalDatabase() {
         return Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
-            data.getTests(String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
-                    , 1 ))).enqueue(new Callback<TestsRemote>() {
-                @Override
-                public void onResponse(Call<TestsRemote> call, Response<TestsRemote> response) {
-                    if(response.body()!=null){
-                       remote= response.body();
-                       emitter.onComplete();
+                data.getTests(String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
+                        , 1 ))).enqueue(new Callback<TestsRemote>() {
+                    @Override
+                    public void onResponse(Call<TestsRemote> call, Response<TestsRemote> response) {
+                        if(response.body()!=null){
+                            remote= response.body();
+                            emitter.onComplete();
+                        }
+                        Log.d(TAG, "onResponse: "+response.body().getTests()[1].getDEsc());
+                        Log.d(TAG, "onResponse: "+response.message());
                     }
-                    Log.d(TAG, "onResponse: "+response.body().getTests()[1].getDEsc());
-                    Log.d(TAG, "onResponse: "+response.message());
-                }
 
-                @Override
-                public void onFailure(Call<TestsRemote> call, Throwable t) {
-                    Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-                    Log.d(TAG, "onFailure: "+t.getMessage());
-                    t.printStackTrace();
-                    emitter.onError(t);
-                }
-            });
-    }
-}).andThen(Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-              testDao.deletDatabase();
+                    @Override
+                    public void onFailure(Call<TestsRemote> call, Throwable t) {
+                        Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
+                        Log.d(TAG, "onFailure: "+t.getMessage());
+                        t.printStackTrace();
+                        emitter.onError(t);
+                    }
+                });
             }
-        })).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote)));
+        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote)));
     }
 }
