@@ -9,10 +9,11 @@
         android:background="@drawable/profile_back">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -71,11 +72,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Level"
+                        android:text="Point"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/ponints"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -95,11 +97,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="TextView"
+                        android:text="Level"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/level"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -119,11 +122,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="TextView"
+                        android:text="Questions"
                         android:textColor="@color/colorPrimary"
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/qsolved"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -142,6 +146,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Name"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

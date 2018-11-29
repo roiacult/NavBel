@@ -1,8 +1,11 @@
 package oxxy.kero.roiaculte.team7.khbich.dagger.module;
 
+import androidx.room.PrimaryKey;
 import dagger.Module;
 import dagger.Provides;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.main.Profile.ContractProfile;
+import oxxy.kero.roiaculte.team7.khbich.ui.main.Profile.ProfilePresenter;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.LoginContract;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.LoginPresenter;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn.ContractSignIn;
@@ -29,6 +32,11 @@ public class UserModule {
     @Provides @PerActivity
     ContractSaveInfo.PRESENTER provideSaveInfo(AuthentificationRepository repo){
         return  new SaveInfoPresenter(repo);
+    }
+
+    @Provides @PerActivity
+    ContractProfile.PRESENTER provideProfile(AuthentificationRepository repo){
+        return new ProfilePresenter(repo);
     }
 
 

@@ -8,6 +8,10 @@ public class ContractProfile {
 
     public interface VIEW extends MvpView {
 
+        void setName(String name);
+        void setPoint(String point);
+        void setLevel(String level);
+        void setTests(String tests);
     }
 
     public interface PRESENTER extends MvpBasePresenter<ContractProfile.VIEW> {

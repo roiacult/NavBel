@@ -7,17 +7,17 @@
         android:title="@string/main" />
 
     <item
-        android:id="@+id/navigation_module"
+        android:id="@+id/navigation_Forum"
         android:icon="@drawable/nav_botom_forum"
         android:title="@string/Forume" />
 
     <item
-        android:id="@+id/navigation_events"
+        android:id="@+id/navigation_rewards"
         android:icon="@drawable/nav_botom_rewards"
         android:title="@string/rewards" />
 
     <item
-        android:id="@+id/navigation_moyen"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/nav_botom_profile"
         android:title="@string/moyene" />
 
