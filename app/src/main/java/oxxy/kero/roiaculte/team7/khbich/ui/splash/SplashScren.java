@@ -20,7 +20,7 @@ SharedPreferences preferences;
         getComponent().inject(this);
                preferences = getSharedPreferences("SHARED_PREFERENCE_NAME", MODE_PRIVATE);
         presenter.onAttach(this);
-//         preferences.edit()
-//                .putBoolean("oxxy.kero.roiaculte.team7.khbich.IS_USER_LOGGED", false).commit();
+         preferences.edit()
+                .putBoolean("oxxy.kero.roiaculte.team7.khbich.IS_USER_LOGGED", false).commit();
     }
 }

@@ -50,16 +50,18 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         return mutableLiveData;
     }
 
-//    @Override
-//    public void LogUserIn(String mail, String password, DisposableObserver<UserView> observer) {
-//        auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
-//                .subscribeWith(observer);
-//    }
-
     @Override
-    public LiveData<UserView> login(String mail, String password) {
-        return convertToLiveData(auth.loginUser(mail, password));
+    public void login(String mail, String password, DisposableObserver<UserView> observer) {
+        auth.loginUser(mail, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.from(new JobExecutor()))
+                .subscribeWith(observer);
     }
+//
+//    @Override
+//    public LiveData<UserView> login(String mail, String password) {
+//        return convertToLiveData(auth.loginUser(mail, password));
+//    }
 
     @Override
     public void AddUserLocal(UserView userView) {
