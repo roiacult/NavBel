@@ -65,6 +65,7 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
             @Override
             public void onClick(View v) {
                 //TODO startimage Cropper
+                
             }
         });
     }

@@ -83,6 +83,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                     break;
                 case USER_ALREADY_REGISTRED:
                     getView().showMessage("you are alredy registered");
+                    ((Registration)getView().getBaseActivity()).loadLogin();
                     break;
 
                 default: //todo start save info activity
