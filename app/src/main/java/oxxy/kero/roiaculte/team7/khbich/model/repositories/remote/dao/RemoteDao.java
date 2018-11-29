@@ -20,4 +20,6 @@ public interface RemoteDao {
 
     @GET("index.php?op=login")
     Call<User> loginUser(@Query("email") String mail , @Query("password") String password, @Query("skey")String Skey);
+    @POST("index.php?op=update")
+    Call<Message> updateUserData(@Body User user , @Query("skey") String Skey);
 }

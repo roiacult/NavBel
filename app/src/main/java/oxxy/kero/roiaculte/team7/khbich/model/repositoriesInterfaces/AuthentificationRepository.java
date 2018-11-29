@@ -19,4 +19,5 @@ public interface AuthentificationRepository {
      LiveData<UserView> login(String mail, String password);
      void AddUserLocal (UserView userView);
      LiveData<UserView> getUserLocal();
+     void UpdateDataUser(UserView userView, DisposableCompletableObserver observer);
 }

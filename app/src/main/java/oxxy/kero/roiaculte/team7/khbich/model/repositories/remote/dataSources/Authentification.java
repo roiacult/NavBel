@@ -155,5 +155,34 @@ public class Authentification {
 
     }
 
+    public Completable updateUserData(final UserView userView){
+        final String Key = KeyCrypting.CrypteIt();
+        return Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(final CompletableEmitter emitter) throws Exception {
+               dao.updateUserData(UserConverter.fromViewToRemote(userView), Key).enqueue(new Callback<Message>() {
+                   @Override
+                   public void onResponse(Call<Message> call, Response<Message> response) {
+                        if(!emitter.isDisposed()){
+                            Log.d(TAG, "onResponse: "+response.toString());
+                            Log.d(TAG, "onResponse: "+response.message());
+                            if(response.body().getResponse().equals("1")){
+                                emitter.onComplete();
+                            }
+                        }
+                   }
+                   @Override
+                   public void onFailure(Call<Message> call, Throwable t) {
+                       t.printStackTrace();
+                       emitter.onError(t);
+                   }
+               });
+            }
+        });
+    }
+
+
+
+
 
 }

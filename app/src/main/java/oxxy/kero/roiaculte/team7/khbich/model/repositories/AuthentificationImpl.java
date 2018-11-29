@@ -71,4 +71,9 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     public LiveData<UserView> getUserLocal() {
         return preference.getUserViewLocal();
     }
+
+    @Override
+    public void UpdateDataUser(UserView userView, DisposableCompletableObserver observer) {
+        executeCompletable(auth.updateUserData(userView), observer);
+    }
 }
