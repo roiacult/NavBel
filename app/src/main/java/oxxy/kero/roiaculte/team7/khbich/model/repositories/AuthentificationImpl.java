@@ -40,6 +40,7 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
                     @Override
                     public void run() throws Exception {
                         preference.LogUserIn(user);
+                        //todo remplace this withe addUserLocal
                     }
                 }))
                 , observer);
@@ -65,5 +66,15 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     @Override
     public LiveData<UserView> login(String mail, String password) {
         return convertToLiveData(auth.loginUser(mail, password));
+    }
+
+    @Override
+    public void AddUserLocal(UserView userView) {
+        preference.LogUserIn(userView);
+    }
+
+    @Override
+    public UserView getUserLocal() {
+        return null;
     }
 }

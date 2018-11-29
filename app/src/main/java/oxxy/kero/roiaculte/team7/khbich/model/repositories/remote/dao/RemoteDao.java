@@ -15,9 +15,6 @@ public interface RemoteDao {
     @POST("index.php?op=signin")
     Call<Message> saveUser(@Body User user, @Query("skey") String Skey ) ;
 
-//    @GET("index.php?op=check")
-//    Call<String>  checkUser(@Query("email") String email , @Query("skey") String Skey);
-
     @GET("index.php?op=check")
     Call<Message> checkUserJson(@Query("email") String email , @Query("skey") String Skey);
 

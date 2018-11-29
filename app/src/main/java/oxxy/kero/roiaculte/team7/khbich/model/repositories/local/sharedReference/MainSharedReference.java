@@ -49,5 +49,7 @@ public class MainSharedReference {
       return   preferences.getBoolean(IS_USER_LOGGED, false);
     }
 
-
+//   UserView getUserViewLocal(){
+//        return new UserView(preferences.getString(USER_NAME, ""), )
+//   }
 }
