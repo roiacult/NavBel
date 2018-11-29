@@ -36,13 +36,7 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     @Override
     public void SaveUserRemote(final UserView user, DisposableCompletableObserver observer) {
         //todo dont forget to add a sign out
-        executeCompletable(auth.SignUpUser(user).andThen(Completable.fromAction(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        preference.LogUserIn(user);
-                        //todo remplace this withe addUserLocal
-                    }
-                }))
+        executeCompletable(auth.SignUpUser(user)
                 , observer);
     }
     @Override
@@ -57,11 +51,11 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         return mutableLiveData;
     }
 
-    @Override
-    public void LogUserIn(String mail, String password, DisposableObserver<UserView> observer) {
-        auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
-                .subscribeWith(observer);
-    }
+//    @Override
+//    public void LogUserIn(String mail, String password, DisposableObserver<UserView> observer) {
+//        auth.loginUser(mail, password).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor()))
+//                .subscribeWith(observer);
+//    }
 
     @Override
     public LiveData<UserView> login(String mail, String password) {
@@ -75,6 +69,6 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
 
     @Override
     public UserView getUserLocal() {
-        return null;
+        return preference.getUserViewLocal();
     }
 }

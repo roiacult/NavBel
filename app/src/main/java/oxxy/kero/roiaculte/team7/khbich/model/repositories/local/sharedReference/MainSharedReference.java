@@ -13,6 +13,7 @@ import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 public class MainSharedReference {
     private static final String IS_USER_LOGGED="oxxy.kero.roiaculte.team7.khbich.IS_USER_LOGGED";
     private static  final String USER_NAME ="oxxy.kero.roiaculte.team7.khbich.USERNAME";
+    private static final String USER_PASSWORD= "oxxy.kero.roiaculte.team7.khbich.PASSWORD";
     private static final String USER_MAIL = "oxxy.kero.roiaculte.team7.khbich.USERMAIL";
     private static final String USER_PICTURE = "oxxy.kero.roiaculte.team7.khbich.USERPICTURE";
     private static final String USER_YEAR = "oxxy.kero.roiaculte.team7.khbich.USER_YEAR";
@@ -29,7 +30,9 @@ public class MainSharedReference {
     public void LogUserIn(UserView userView){
          SaveUser();
          SharedPreferences.Editor editor = preferences.edit();
+         ///WE DONT NEED TO SAVE  THE PASSWORD
          editor.putBoolean(IS_USER_LOGGED, true);
+         editor.putString(USER_PASSWORD, userView.getPassword());
          editor.putString(USER_NAME , userView.getName());
          editor.putString(USER_MAIL, userView.getEmail());
          editor.putString(USER_PICTURE, userView.getPassword());
@@ -49,7 +52,13 @@ public class MainSharedReference {
       return   preferences.getBoolean(IS_USER_LOGGED, false);
     }
 
-//   UserView getUserViewLocal(){
-//        return new UserView(preferences.getString(USER_NAME, ""), )
-//   }
+   public UserView getUserViewLocal(){
+        return new UserView(preferences.getString(USER_NAME, ""),
+                preferences.getString("USER_MAIL", ""), preferences.getString(USER_PICTURE, ""),
+              preferences.getString(USER_PASSWORD, "password")
+              , UserConverter.fromInt(preferences.getInt(USER_YEAR, 0)),
+                preferences.getInt(USER_POINT, 0), Calendar.getInstance().getTime(),preferences.getString(QSOLVED, "qsolved")
+        , preferences.getInt(LEVEL, 0));
+                //todo set correctly the date
+   }
 }
