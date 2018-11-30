@@ -5,6 +5,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
+
 import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class TextUtils {
@@ -47,6 +49,15 @@ public class TextUtils {
                   i++ ;
               }
               return 0;
+    }
+    public static  boolean IsSolved(long lon, List<Long> longs){
+        for (Long l: longs
+             ) {
+            if(l==lon){
+                return true ;
+            }
+        }
+        return false ;
     }
 
 }

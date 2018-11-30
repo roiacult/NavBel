@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +11,17 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.QuestionDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
+
+import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class LocalData {
     private TestDao dao;
@@ -24,34 +32,32 @@ public class LocalData {
         this.questionDao = database.questionDao();
     }
 
-    public Completable saveTests(List<Test> tests){
+    public Completable saveTests(List<Test> tests, List<Long> longs){
+        Log.d(TAG, "saveTests:  "+String.valueOf(tests.size()));
+//        for (Test test:tests
+//             ) {
+//            if(TextUtils.IsSolved(test.getId(), longs)){
+//                test.setResolved(true);
+//            }
+//        }
         return dao.InsertFromRempte(tests);
     }
+public void getAllTest(DisposableObserver<List<Test>> observer){
+      dao.getTests().observeOn(AndroidSchedulers
+              .mainThread()).subscribeOn(Schedulers.from(new JobExecutor())).subscribeWith(observer);
 
-public void deletDatabase(){
+}
+public void deletDatabase()
+{
+    questionDao.dropTable();
         dao.deleteTable();
 }
    public Completable saveQuestions(List<Question>questions){
         return questionDao.insertQuestionRemote(questions);
    }
 
-public Observable<List<Test>> getTestSolved(final String qsolved){
-        return Observable.create(new ObservableOnSubscribe<List<Test>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<Test>> emitter) throws Exception {
-                List<Test> tests = new ArrayList<>();
-                List<Long> longs = TextUtils.getLOng(qsolved);
-                for (Long l:
-                     longs) {
-                    tests.add(dao.getTest(l.longValue()));
-                }
-                if(!tests.isEmpty()){
-                    emitter.onNext(tests);
-                }else{
-                    emitter.onError(new Exception());
-                }
-            }
-        });
+public Observable<List<Test>> getTestSolved(){
+        return dao.getTestResolved(true);
 }
 
 }

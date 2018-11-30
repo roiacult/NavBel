@@ -13,12 +13,13 @@ import io.reactivex.CompletableObserver;
 import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
+import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.QuestionConvertere;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TestConverter;
-import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
+import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.model.models.QuestionConverter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalData;
@@ -47,10 +48,14 @@ public class DataFlowImpl implements DataFlowRepository {
         this.preferences= preferences;
     }
     @Override
-    public Completable updateLOcalDatabase() {
+    public void  updateLOcalDatabase(DisposableCompletableObserver observer)
+    {
         final String year = String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
                 , 1));
-        return Completable.create(new CompletableOnSubscribe() {
+        final String qsolved =  preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED", "");
+        Log.d(TAG, "updateLOcalDatabase:" );
+        List<Long> longs = TextUtils.getLOng(qsolved);
+        Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
                 data.getTests(year).enqueue(new Callback<TestsRemote>() {
@@ -60,8 +65,9 @@ public class DataFlowImpl implements DataFlowRepository {
                             remote = response.body();
                             emitter.onComplete();
                         }
-                        Log.d(TAG, "onResponse: " + response.body().getTests()[1].getDEsc());
+//                        Log.d(TAG, "onResponse: " + response.body().getTests()[1].getDEsc());
                         Log.d(TAG, "onResponse: " + response.message());
+                        Log.d(TAG, "onResponse: "+String.valueOf(response.body().getTests().length));
                     }
 
                     @Override
@@ -73,57 +79,54 @@ public class DataFlowImpl implements DataFlowRepository {
                     }
                 });
             }
-        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote))).andThen(Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(final CompletableEmitter emitter) throws Exception {
-                data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
-                    @Override
-                    public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
-                        if (response.body() != null) {
-                            questionRemote = response.body();
-                            emitter.onComplete();
-                        }
-                        Log.d(TAG, "onResponse: " + response.body().getQuestionRemotes()[1].getQuestion());
-                        Log.d(TAG, "onResponse: " + response.message());
-                    }
-
-                    @Override
-                    public void onFailure(Call<QuestionsRemote> call, Throwable t) {
-                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-                        Log.d(TAG, "onFailure: " + t.getMessage());
-                        t.printStackTrace();
-                        emitter.onError(t);
-                    }
-                });
-            }
-        })).andThen(Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
-            }
-        }));
+        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote), longs))
+                .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);
     }
-
+//.andThen(Completable.create(new CompletableOnSubscribe() {
+//            @Override
+//            public void subscribe(final CompletableEmitter emitter) throws Exception {
+//                data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
+//                    @Override
+//                    public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
+//                        if (response.body() != null) {
+//                            questionRemote = response.body();
+//                            emitter.onComplete();
+//                        }
+//                        Log.d(TAG, "onResponse: " + response.message());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<QuestionsRemote> call, Throwable t) {
+//                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+//                        Log.d(TAG, "onFailure: " + t.getMessage());
+//                        t.printStackTrace();
+//                        emitter.onError(t);
+//                    }
+//                });
+//            }
+//        })).andThen(Completable.fromAction(new Action() {
+//            @Override
+//            public void run() throws Exception {
+//                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
+//            }
+//        }))
     @Override
     public void getTestSolved(DisposableObserver<List<Test>> tests) {
-          testDao.getTestSolved(preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED", ""))
-                  .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
-                  .subscribeWith(tests);
+        testDao.getAllTest(tests);
+//          testDao.getTestSoved()
+//                  .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+//                  .subscribeWith(tests);
     }
 
     @Override
     public void dropTable() {
+
         testDao.deletDatabase();
     }
 
 
     @Override
     public void getAllTests(DisposableObserver<List<Test>> listDisposableObserver) {
-
-    }
-
-    @Override
-    public void getQuestionFromTest(DisposableObserver<List<Question>> qutionsObserver, long testId) {
 
     }
 }

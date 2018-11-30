@@ -3,6 +3,7 @@ package oxxy.kero.roiaculte.team7.khbich.ui.registration.signIn;
 import android.content.Intent;
 import android.text.TextUtils;
 import androidx.lifecycle.ViewModelProviders;
+import io.reactivex.observers.DisposableCompletableObserver;
 import oxxy.kero.roiaculte.team7.khbich.Utils.YearConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
@@ -22,7 +23,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
     private RegistrationViewModel viewModel;
     private AuthentificationRepository repo;
     private DataFlowRepository flowRepository;
-
+    private UserState userState ;
     @Override
     public void onAttach(ContractSignIn.VIEW mvpView) {
         super.onAttach(mvpView);
@@ -76,7 +77,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
 
         @Override
         public void onChanged(UserState userState) {
-
+             SigneInPresenter.this.userState= userState ;
             getView().showLoading(false);
 
             switch (userState){
@@ -89,15 +90,26 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                     break;
 
                 default:
-                    flowRepository.updateLOcalDatabase();
-                    Intent intent = new Intent(getView().getBaseActivity(),SaveInfo.class);
-                    intent.putExtra(YEAR,YearConverter.from(userState));
-                    intent.putExtra(EMAIL,getView().getEmail());
-                    intent.putExtra(PASSWORD,getView().getPasssword());
-                    getView().getBaseActivity().startActivity(intent);
-                    getView().getBaseActivity().finish();
+                    flowRepository.updateLOcalDatabase(new UpdateLocal());
+
             }
         }
 
+    }
+    private class UpdateLocal extends DisposableCompletableObserver{
+        @Override
+        public void onComplete() {
+            Intent intent = new Intent(getView().getBaseActivity(),SaveInfo.class);
+            intent.putExtra(YEAR,YearConverter.from(userState));
+            intent.putExtra(EMAIL,getView().getEmail());
+            intent.putExtra(PASSWORD,getView().getPasssword());
+            getView().getBaseActivity().startActivity(intent);
+            getView().getBaseActivity().finish();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
     }
 }

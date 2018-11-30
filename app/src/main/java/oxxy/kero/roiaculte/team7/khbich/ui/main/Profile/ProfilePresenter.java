@@ -39,6 +39,8 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
             @Override
             public void onNext(List<Test> tests) {
                 viewModel.setTests(tests);
+                Log.d(TAG, "onNext: "+"bsbsbsbbsb");
+                Log.d(TAG, "onNext: "+tests.size());
                 if (tests == null || tests.size() == 0) getView().showMessage("list est vide");
                 else getView().showMessage("list n'est pas vide");
                 //TODO notify adapter

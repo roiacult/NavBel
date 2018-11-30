@@ -38,6 +38,7 @@ public class UserView {
     public UserView() {
     }
 
+
     public Date getDate() {
         return date;
     }

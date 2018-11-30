@@ -39,26 +39,28 @@ public class Main extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this,R.layout.main);
         getComponent().inject(this);
-        binding.navigatione.addItem(new AHBottomNavigationItem(R.string.main, R.drawable.nav_botom_main, R.color.colorPrimary));
+binding.navigatione.addItem(new AHBottomNavigationItem(R.string.main, R.drawable.nav_botom_main, R.color.colorPrimary));
         binding.navigatione.addItem(new AHBottomNavigationItem(R.string.Forume, R.drawable.nav_botom_forum, R.color.colorPrimary));
         binding.navigatione.addItem(new AHBottomNavigationItem(R.string.rewards, R.drawable.nav_botom_rewards, R.color.colorPrimary));
         binding.navigatione.addItem(new AHBottomNavigationItem(R.string.moyene, R.drawable.nav_botom_profile, R.color.colorPrimary));
-        binding.navigatione.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
-        binding.navigatione.setForceTint(true);
-        binding.navigatione.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
-        binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+         binding.navigatione.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+         binding.navigatione.setForceTint(true);
+      binding.navigatione.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
+binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
     @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
         switch (position){
             case 3:
                 if (profile == null) profile = new Profile();
                         getSupportFragmentManager().beginTransaction()
+                                .addToBackStack("profile")
                                 .replace(R.id.main_container,profile)
                                 .commit();
                         break;
             case R.id.navigation_home:
                 if (home == null) home = new Home();
                 getSupportFragmentManager().beginTransaction()
+                        .addToBackStack("profile")
                         .replace(R.id.main_container,home)
                         .commit();
 
@@ -96,6 +98,4 @@ public class Main extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

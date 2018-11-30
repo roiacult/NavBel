@@ -6,7 +6,7 @@ import androidx.room.TypeConverters;
 
 @Entity
 public class Question {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private  long Id ;
     private String ImageUrl ;
     @TypeConverters(QuestionConverter.class)

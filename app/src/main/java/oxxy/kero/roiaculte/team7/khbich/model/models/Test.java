@@ -3,11 +3,12 @@ package oxxy.kero.roiaculte.team7.khbich.model.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
+import dagger.Provides;
 import oxxy.kero.roiaculte.team7.khbich.Utils.UserConverter;
 
 @Entity
 public class Test {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public long Id ;
     private String Name ;
     private String Description ;
@@ -16,6 +17,7 @@ public class Test {
     @TypeConverters(UserConverter.class)
     private UserState year;
     private int NumberQuestion;
+    private boolean isResolved;
 
     public Test(long id, String name, String description, String imageUrl, int points, UserState year, int numberQuestion) {
         Id = id;
@@ -25,6 +27,14 @@ public class Test {
         Points = points;
         this.year = year;
         NumberQuestion = numberQuestion;
+    }
+
+    public boolean isResolved() {
+        return isResolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        isResolved = resolved;
     }
 
     public int getNumberQuestion() {

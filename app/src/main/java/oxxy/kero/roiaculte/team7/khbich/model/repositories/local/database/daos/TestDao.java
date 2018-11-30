@@ -17,10 +17,11 @@ public interface TestDao {
     Completable InsertFromRempte( final List<Test> tests);
      @Query("delete from Test")
     void deleteTable();
-     @Query("SELECT *FROM Test WHERE Id =:id")
-     Test getTest(long id );
+     @Query("SELECT * FROM Test WHERE isResolved = :bool")
+     Observable<List<Test>> getTestResolved(boolean bool);
      @Query("SELECT * FROM Test ")
-    Observable<Test> getTests();
+    Observable<List<Test>> getTests();
+
 
 
 }

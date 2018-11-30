@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import io.reactivex.Completable;
 import io.reactivex.Observable;

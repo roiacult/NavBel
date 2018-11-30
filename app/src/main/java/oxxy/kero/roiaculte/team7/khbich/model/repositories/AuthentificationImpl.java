@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.model.repositories;
 
+import android.net.Uri;
+
 import javax.inject.Inject;
 
 import androidx.lifecycle.LiveData;
