@@ -4,6 +4,7 @@ import androidx.room.PrimaryKey;
 import dagger.Module;
 import dagger.Provides;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Profile.ContractProfile;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Profile.ProfilePresenter;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.login.LoginContract;
@@ -20,13 +21,13 @@ import oxxy.kero.roiaculte.team7.khbich.ui.splash.SplashPresnter;
 public class UserModule {
 
     @Provides @PerActivity
-    ContractSignIn.PRESENTER provideSignIn(AuthentificationRepository repo){
-        return new SigneInPresenter(repo);
+    ContractSignIn.PRESENTER provideSignIn(AuthentificationRepository repo, DataFlowRepository flowRepository){
+        return new SigneInPresenter(repo,flowRepository);
     }
 
     @Provides @PerActivity
-    LoginContract.PRESENTER provdeLogin(AuthentificationRepository repo){
-        return new LoginPresenter(repo);
+    LoginContract.PRESENTER provdeLogin(AuthentificationRepository repo,DataFlowRepository flowRepository){
+        return new LoginPresenter(repo,flowRepository);
     }
 
     @Provides @PerActivity
@@ -35,8 +36,8 @@ public class UserModule {
     }
 
     @Provides @PerActivity
-    ContractProfile.PRESENTER provideProfile(AuthentificationRepository repo){
-        return new ProfilePresenter(repo);
+    ContractProfile.PRESENTER provideProfile(AuthentificationRepository repo,DataFlowRepository flowRepository){
+        return new ProfilePresenter(repo,flowRepository);
     }
 
 

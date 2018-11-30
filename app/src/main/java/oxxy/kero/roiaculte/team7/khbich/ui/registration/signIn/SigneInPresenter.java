@@ -7,6 +7,7 @@ import oxxy.kero.roiaculte.team7.khbich.Utils.YearConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.Registration;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.RegistrationViewModel;
 import oxxy.kero.roiaculte.team7.khbich.ui.saveinfo.SaveInfo;
@@ -20,6 +21,7 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
     private ContractSignIn.VIEW view;
     private RegistrationViewModel viewModel;
     private AuthentificationRepository repo;
+    private DataFlowRepository flowRepository;
 
     @Override
     public void onAttach(ContractSignIn.VIEW mvpView) {
@@ -29,8 +31,9 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
         }
     }
 
-    public SigneInPresenter(AuthentificationRepository repo) {
+    public SigneInPresenter(AuthentificationRepository repo,DataFlowRepository flowRepository) {
         this.repo = repo;
+        this.flowRepository = flowRepository;
     }
 
     @Override
@@ -56,7 +59,6 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                 return;
             }
             getView().showLoading(true);
-
 
             viewModel.setUserState(repo.checkUser(getView().getEmail()));
 
@@ -86,7 +88,8 @@ public class SigneInPresenter extends BasePresenter<ContractSignIn.VIEW> impleme
                     ((Registration)getView().getBaseActivity()).loadLogin();
                     break;
 
-                default: //todo start save info activity
+                default:
+                    flowRepository.updateLOcalDatabase();
                     Intent intent = new Intent(getView().getBaseActivity(),SaveInfo.class);
                     intent.putExtra(YEAR,YearConverter.from(userState));
                     intent.putExtra(EMAIL,getView().getEmail());

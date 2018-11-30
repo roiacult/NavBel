@@ -1,19 +1,26 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main.Profile;
 
+import java.util.List;
+
 import androidx.lifecycle.ViewModelProviders;
+import androidx.room.util.StringUtil;
+import io.reactivex.observers.DisposableObserver;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
+import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
 
 public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implements ContractProfile.PRESENTER {
 
     private AuthentificationRepository repo;
+    private DataFlowRepository flowRepo;
     private MainViewModel viewModel;
 
-    public ProfilePresenter(AuthentificationRepository repo) {
+    public ProfilePresenter(AuthentificationRepository repo,DataFlowRepository flowRepository) {
         this.repo = repo;
-
+        this.flowRepo = flowRepository;
     }
 
     @Override
@@ -22,15 +29,43 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
         viewModel = ViewModelProviders.of(getView().getBaseActivity()).get(MainViewModel.class);
         viewModel.setUser(repo.getUserLocal());
         viewModel.getUser().observe(getView().getBaseActivity(),new UserObserver());
+
+//        viewModel.setTests(repo.get);
+        flowRepo.getTestSolved(new DisposableObserver<List<Test>>() {
+            @Override
+            public void onNext(List<Test> tests) {
+                viewModel.setTests(tests);
+                if (tests == null || tests.size() == 0) getView().showMessage("list est vide");
+                else getView().showMessage("list n'est pas vide");
+                //TODO notify adapter
+                getView().notifyAdapter();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().showMessage("onError");
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
     private class UserObserver implements androidx.lifecycle.Observer<UserView> {
         @Override
         public void onChanged(UserView userView) {
-            getView().setName(userView.getName()+", "+userView.getPrename());
+
+            String name = userView.getName();
+            String  prenam = userView.getPrename();
+            String qSoleved = userView.getQsolved();
+            if (name == null) name="";
+            getView().setName(userView.getName());
             getView().setLevel(String.valueOf(userView.getLevel()));
             getView().setPoint(String.valueOf(userView.getPoints()));
-            getView().setTests(userView.getQsolved());
+
+            getView().setTests(String.valueOf(qSoleved.length()-qSoleved.replace("@","").length()));
         }
     }
 }

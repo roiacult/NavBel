@@ -17,10 +17,14 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import oxxy.kero.roiaculte.team7.khbich.MyApp;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.AuthentificationImpl;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalData;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalDatabase;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.sharedReference.MainSharedReference;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.DataFlowImpl;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.RemoteData;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -64,5 +68,10 @@ public class AppModule {
     @Provides @Singleton
     Context getApplicationContext(){
         return application.getApplicationContext() ;
+    }
+
+    @Provides @Singleton
+    DataFlowRepository provideDataFlowRepo(LocalData testDao, RemoteData data, SharedPreferences preferences){
+        return new DataFlowImpl(testDao,data,preferences);
     }
 }

@@ -15,6 +15,7 @@ import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.dagger.module.AppModule;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalDatabase;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import retrofit2.Retrofit;
 
 @Singleton
@@ -29,5 +30,6 @@ public interface AppComponent {
     Gson gson();
     LocalDatabase localDatabase();
     AuthentificationRepository getAuthRepo();
+    DataFlowRepository getDataFlowReop();
 
 }

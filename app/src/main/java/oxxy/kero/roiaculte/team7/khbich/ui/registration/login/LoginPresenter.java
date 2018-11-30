@@ -9,6 +9,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import oxxy.kero.roiaculte.team7.khbich.base.BasePresenter;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
+import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.Registration;
@@ -17,18 +18,14 @@ import oxxy.kero.roiaculte.team7.khbich.ui.registration.RegistrationViewModel;
 public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements LoginContract.PRESENTER {
 
     private AuthentificationRepository repo;
-    private RegistrationViewModel viewModel;
+    private DataFlowRepository flowRepository;
 
 
-    public LoginPresenter(AuthentificationRepository repo) {
+    public LoginPresenter(AuthentificationRepository repo,DataFlowRepository flowRepository) {
         this.repo = repo;
+        this.flowRepository = flowRepository;
     }
 
-    @Override
-    public void onAttach(LoginContract.VIEW mvpView) {
-        super.onAttach(mvpView);
-        viewModel = ViewModelProviders.of(getView().getBaseActivity()).get(RegistrationViewModel.class);
-    }
 
     @Override
     public void onLoginCliked() {
@@ -65,9 +62,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.VIEW> implements
             repo.AddUserLocal(userView);
             if (getView()!= null) {
 
+
+                repo.AddUserLocal(userView);
+                flowRepository.updateLOcalDatabase();
                 getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(), Main.class));
                 getView().getBaseActivity().finish();
-                repo.AddUserLocal(userView);
             }
         }
 

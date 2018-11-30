@@ -9,16 +9,13 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
-import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.Utils.UserConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Message;
 import oxxy.kero.roiaculte.team7.khbich.model.models.UserState;
-import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.DataFlowImpl;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao.RemoteDao;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification;
-import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.RemoteData;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import retrofit2.Call;
@@ -33,7 +30,6 @@ import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,14 +39,15 @@ public class MainActivity extends BaseActivity {
 //    Authentification authentification  ;
 //    @Inject
 //    AuthentificationRepository repository ;
-   @Inject
-    RemoteData data;
+//   @Inject
+//    RemoteData data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getApplicationComponent().inject(this);
 //        data.getTests("1");
+
 //        repository.UpdateDataUser(new UserView("Nikmok", "a", "picture", "password", UserState.USER_2CPI, 250, Calendar.getInstance().getTime(),
 //                "qsolved", 12), new DisposableCompletableObserver() {
 //            @Override
