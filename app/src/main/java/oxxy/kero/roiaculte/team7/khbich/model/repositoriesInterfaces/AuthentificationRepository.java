@@ -17,7 +17,6 @@ public interface AuthentificationRepository {
 
      LiveData<Boolean> isUserLoggedIn();
       void signOutUser();
-//     LiveData<UserView> login(String mail, String password);
      void login(String mail , String password, DisposableObserver<UserView> observer);
      void AddUserLocal (UserView userView);
      LiveData<UserView> getUserLocal();

@@ -19,5 +19,8 @@ public interface TestDao {
     void deleteTable();
      @Query("SELECT *FROM Test WHERE Id =:id")
      Test getTest(long id );
+     @Query("SELECT * FROM Test ")
+    Observable<Test> getTests();
+
 
 }
