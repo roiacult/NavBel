@@ -11,5 +11,6 @@ public interface DataFlowRepository {
 
 Completable updateLOcalDatabase();
 void getTestSolved(DisposableObserver<List<Test>> tests);
+void dropTable();
 
 }

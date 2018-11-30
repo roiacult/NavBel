@@ -20,7 +20,7 @@ public abstract class LocalDatabase extends RoomDatabase {
 
     public  static LocalDatabase  getDatabase(Context context) {
         if(database ==null){
-            synchronized (database){
+            synchronized (LocalDatabase.class){
                 if(database==null){
                     database= Room.databaseBuilder(context, LocalDatabase.class, "LocalDatabase")
                             .allowMainThreadQueries().build();

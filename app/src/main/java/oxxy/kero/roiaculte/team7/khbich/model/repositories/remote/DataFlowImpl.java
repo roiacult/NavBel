@@ -78,4 +78,8 @@ public class DataFlowImpl implements DataFlowRepository {
                   .subscribeWith(tests);
     }
 
+    @Override
+    public void dropTable() {
+        testDao.deletDatabase();
+    }
 }
