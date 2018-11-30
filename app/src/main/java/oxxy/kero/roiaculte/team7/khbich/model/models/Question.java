@@ -20,6 +20,17 @@ public class Question {
     public Question() {
     }
 
+    public Question(long id, String imageUrl, QuestionType questionType, String question, String option, String response, int points, long testId) {
+        Id = id;
+        ImageUrl = imageUrl;
+        this.questionType = questionType;
+        Question = question;
+        Option = option;
+        this.response = response;
+        Points = points;
+        this.testId = testId;
+    }
+
     public long getId() {
         return Id;
     }
