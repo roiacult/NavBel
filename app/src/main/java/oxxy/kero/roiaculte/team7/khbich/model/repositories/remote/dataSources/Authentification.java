@@ -78,7 +78,7 @@ public class Authentification {
                     @Override
                     public void onFailure(Call<Message> call, Throwable t) {
                     if(!emitter.isDisposed()){
-                        emitter.onError(t);
+                         emitter.onError(t);
                     }
                     }
                 });

@@ -128,6 +128,7 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
 
         showMessage("setting image");
         Uri uri=Uri.parse(img);
+        viewModel.getUserView().setPictureUri(uri);
         binding.signeInImage.setImageURI(uri);
         Picasso.get().load(Uri.parse(img)).into(new Target() {
             @Override

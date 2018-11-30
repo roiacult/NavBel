@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.ui;
 
+import android.net.Uri;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +14,7 @@ public class UserView {
     private String prename;
     private String email ;
     private String picture ;
+    private Uri pictureUri;
     private String password;
     private UserState year;
     private int points ;
@@ -113,5 +116,13 @@ public class UserView {
 
     public String getPrename() {
         return prename;
+    }
+
+    public Uri getPictureUri() {
+        return pictureUri;
+    }
+
+    public void setPictureUri(Uri pictureUri) {
+        this.pictureUri = pictureUri;
     }
 }
