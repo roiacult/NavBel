@@ -116,4 +116,9 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
     public Bitmap getImage() {
         return null;
     }
+
+    @Override
+    public void setImage(String img) {
+        binding.signeInImage.setImageBitmap(ImageUtil.convert(img));
+    }
 }

@@ -10,6 +10,6 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 @Dao
 public interface QuestionDao {
     @Insert
-    Completable insertQuestionRemote(List<Question> questionLIst);
+    Completable insertQuestionRemote(final List<Question> questionLIst);
 
 }

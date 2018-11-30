@@ -16,6 +16,7 @@ public class ContractSaveInfo{
         void setUser(UserView user);
         Bitmap getImage();
         void requestStoragePermition();
+        void setImage(String img);
     }
 
     public interface PRESENTER extends MvpBasePresenter<VIEW> {

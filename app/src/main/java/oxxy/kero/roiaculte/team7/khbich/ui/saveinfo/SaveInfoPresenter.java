@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.Authentific
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
 
 import static android.app.Activity.RESULT_OK;
+import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> implements ContractSaveInfo.PRESENTER {
 
@@ -96,8 +99,15 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if(resultCode == RESULT_OK && result.getBitmap() != null){
-                viewModel.getUserView().setPicture(ImageUtil.convert(result.getBitmap()));
+            if(resultCode == RESULT_OK && result.getUri() != null){
+                try {
+                    viewModel.getUserView().setPicture(ImageUtil.convert(MediaStore.Images.Media.getBitmap(getView().getBaseActivity().getContentResolver(),result.getUri())));
+
+                    Log.d(TAG, "onActivityResult: "+viewModel.getUserView().getPicture());
+                    getView().setImage(viewModel.getUserView().getPicture());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
