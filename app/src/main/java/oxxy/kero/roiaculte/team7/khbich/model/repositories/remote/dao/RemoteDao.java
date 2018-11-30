@@ -3,6 +3,7 @@ package oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Message;
 import oxxy.kero.roiaculte.team7.khbich.model.models.User;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.QuestionRemote;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.QuestionsRemote;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.TestsRemote;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,7 +26,7 @@ public interface RemoteDao {
 
 
      @GET("index.php?op=qst")
-     Call<QuestionRemote> getQuestions(@Query("year") String year, @Query("skey") String Skey);
+     Call<QuestionsRemote> getQuestions(@Query("year") String year, @Query("skey") String Skey);
 
     @GET("index.php?op=tests")
     Call<TestsRemote> getTests(@Query("year") String year , @Query("skey") String Key);

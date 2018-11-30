@@ -10,14 +10,18 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
+import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.QuestionDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
 
 public class LocalData {
     private TestDao dao;
+    private QuestionDao questionDao;
     @Inject
     public LocalData(LocalDatabase database) {
         this.dao = database.testDao();
+        this.questionDao = database.questionDao();
     }
 
     public Completable saveTests(List<Test> tests){
@@ -27,7 +31,9 @@ public class LocalData {
 public void deletDatabase(){
         dao.deleteTable();
 }
-
+   public Completable saveQuestions(List<Question>questions){
+        return questionDao.insertQuestionRemote(questions);
+   }
 
 public Observable<List<Test>> getTestSolved(final String qsolved){
         return Observable.create(new ObservableOnSubscribe<List<Test>>() {

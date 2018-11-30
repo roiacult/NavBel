@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 import oxxy.kero.roiaculte.team7.khbich.R;
+import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseFragment;
 import oxxy.kero.roiaculte.team7.khbich.databinding.ProfileBinding;
@@ -146,10 +147,10 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
 
             public void upDateCard(Test test){
                 binding.name.setText(test.getName());
-                binding.numbreOfQuestions.setText(test.getNumberQuestion());
                 binding.note.setText(test.getPoints());
                 String str=preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED","");
-                
+                int nb = TextUtils.getQuestionById(str, test.getId());//this will have the number of the question solved
+                binding.numbreOfQuestions.setText(String.valueOf(nb)+"/"+test.getNumberQuestion());
 
             }
         }

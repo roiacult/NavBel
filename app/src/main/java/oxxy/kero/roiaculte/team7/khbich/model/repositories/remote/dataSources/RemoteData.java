@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import oxxy.kero.roiaculte.team7.khbich.Utils.KeyCrypting;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.QuestionRemote;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.QuestionsRemote;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.TestRemote;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.TestsRemote;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dao.RemoteDao;
@@ -29,7 +30,7 @@ public class RemoteData {
         String Key = KeyCrypting.CrypteIt();
        return dao.getTests(year, Key);
     }
-    public Call<QuestionRemote> getQuestions(String year){
+    public Call<QuestionsRemote> getQuestions(String year){
         String Key = KeyCrypting.CrypteIt();
         return dao.getQuestions(year , Key);
     }

@@ -1,10 +1,13 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import javax.inject.Inject;
@@ -34,33 +37,57 @@ public class Main extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this,R.layout.main);
         getComponent().inject(this);
-
-        binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                switch (menuItem.getItemId()){
-                    case R.id.navigation_home:
-                        break;
-                    case R.id.navigation_Forum:
-                        break;
-                    case R.id.navigation_rewards:
-                        break;
-                    case R.id.navigation_profile:
-
-                        if (profile == null) profile = new Profile();
+binding.navigatione.addItem(new AHBottomNavigationItem(R.string.main, R.drawable.nav_botom_main, R.color.colorPrimary));
+        binding.navigatione.addItem(new AHBottomNavigationItem(R.string.Forume, R.drawable.nav_botom_forum, R.color.colorPrimary));
+        binding.navigatione.addItem(new AHBottomNavigationItem(R.string.rewards, R.drawable.nav_botom_rewards, R.color.colorPrimary));
+        binding.navigatione.addItem(new AHBottomNavigationItem(R.string.moyene, R.drawable.nav_botom_profile, R.color.colorPrimary));
+         binding.navigatione.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
+         binding.navigatione.setForceTint(true);
+      binding.navigatione.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
+binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+    @Override
+    public boolean onTabSelected(int position, boolean wasSelected) {
+        switch (position){
+            case 3:
+                if (profile == null) profile = new Profile();
                         getSupportFragmentManager().beginTransaction()
                                 .addToBackStack("profile")
                                 .replace(R.id.main_container,profile)
                                 .commit();
-                        break;
+        }
+        return true;
+    }
+});
 
-                }
+//  todo ida ma3jbatkch hadi ta9der t3wed treje3 l 9dima 3dk bedel l id ta3ha f xml l navigation
 
-
-                return false;
-            }
-        });
+//                binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+//
+//                switch (menuItem.getItemId()){
+//                    case R.id.navigation_home:
+//                        break;
+//                    case R.id.navigation_Forum:
+//
+//                        break;
+//                    case R.id.navigation_rewards:
+//                        break;
+//                    case R.id.navigation_profile:
+//                          menuItem.setEnabled(true);
+//                        if (profile == null) profile = new Profile();
+//                        getSupportFragmentManager().beginTransaction()
+//                                .addToBackStack("profile")
+//                                .replace(R.id.main_container,profile)
+//                                .commit();
+//                        break;
+//
+//                }
+//
+//
+//                return false;
+//            }
+//        });
 
 
     }

@@ -7,13 +7,17 @@ import javax.inject.Inject;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
+import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.QuestionDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
 
-@Database(entities = Test.class, version = 1, exportSchema = false )
+@Database(entities = {Test.class, QuestionDao.class}, version = 1, exportSchema = false )
 public abstract class LocalDatabase extends RoomDatabase {
       private static volatile LocalDatabase database ;
+
       public abstract TestDao testDao();
+      public abstract QuestionDao questionDao();
 
     public LocalDatabase() {
     }

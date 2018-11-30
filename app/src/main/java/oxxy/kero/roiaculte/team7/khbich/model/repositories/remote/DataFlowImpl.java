@@ -16,7 +16,9 @@ import io.reactivex.functions.Action;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
+import oxxy.kero.roiaculte.team7.khbich.Utils.QuestionConvertere;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TestConverter;
+import oxxy.kero.roiaculte.team7.khbich.model.models.QuestionConverter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalData;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
@@ -35,6 +37,7 @@ public class DataFlowImpl implements DataFlowRepository {
      private RemoteData data ;
      private SharedPreferences preferences ;
      private TestsRemote remote= new TestsRemote(new TestRemote[]{});
+     private QuestionsRemote questionRemote= new QuestionsRemote(new QuestionRemote[]{});
 
     @Inject
     public DataFlowImpl(LocalData testDao, RemoteData data, SharedPreferences preferences) {
@@ -45,31 +48,59 @@ public class DataFlowImpl implements DataFlowRepository {
     @Override
     public Completable updateLOcalDatabase() {
         final String year = String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
-                , 1 ));
+                , 1));
         return Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
                 data.getTests(year).enqueue(new Callback<TestsRemote>() {
                     @Override
                     public void onResponse(Call<TestsRemote> call, Response<TestsRemote> response) {
-                        if(response.body()!=null){
-                            remote= response.body();
+                        if (response.body() != null) {
+                            remote = response.body();
                             emitter.onComplete();
                         }
-                        Log.d(TAG, "onResponse: "+response.body().getTests()[1].getDEsc());
-                        Log.d(TAG, "onResponse: "+response.message());
+                        Log.d(TAG, "onResponse: " + response.body().getTests()[1].getDEsc());
+                        Log.d(TAG, "onResponse: " + response.message());
                     }
 
                     @Override
                     public void onFailure(Call<TestsRemote> call, Throwable t) {
-                        Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-                        Log.d(TAG, "onFailure: "+t.getMessage());
+                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                        Log.d(TAG, "onFailure: " + t.getMessage());
                         t.printStackTrace();
                         emitter.onError(t);
                     }
                 });
             }
-        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote)));
+        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote))).andThen(Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(final CompletableEmitter emitter) throws Exception {
+                data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
+                    @Override
+                    public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
+                        if (response.body() != null) {
+                            questionRemote = response.body();
+                            emitter.onComplete();
+                        }
+                        Log.d(TAG, "onResponse: " + response.body().getQuestionRemotes()[1].getQuestion());
+                        Log.d(TAG, "onResponse: " + response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<QuestionsRemote> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                        Log.d(TAG, "onFailure: " + t.getMessage());
+                        t.printStackTrace();
+                        emitter.onError(t);
+                    }
+                });
+            }
+        })).andThen(Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
+            }
+        }));
     }
 
     @Override
