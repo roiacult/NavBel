@@ -60,7 +60,7 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
 
     @Override
     public void signOutUser() {
-
+          preference.signUserOut();
     }
 
     @Override

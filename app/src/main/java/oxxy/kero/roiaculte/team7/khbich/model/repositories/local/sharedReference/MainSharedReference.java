@@ -68,7 +68,7 @@ public class MainSharedReference {
    }
    public void signUserOut(){
         SharedPreferences.Editor editor= preferences.edit();
-        editor.putBoolean(IS_USER_LOGGED, false);
+        editor.remove(IS_USER_LOGGED);
        editor.remove(USER_PASSWORD);
        editor.remove(USER_NAME);
        editor.remove(USER_MAIL);

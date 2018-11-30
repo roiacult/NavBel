@@ -44,11 +44,12 @@ public class DataFlowImpl implements DataFlowRepository {
     }
     @Override
     public Completable updateLOcalDatabase() {
+        final String year = String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
+                , 1 ));
         return Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
-                data.getTests(String.valueOf(preferences.getInt("oxxy.kero.roiaculte.team7.khbich.USER_YEAR"
-                        , 1 ))).enqueue(new Callback<TestsRemote>() {
+                data.getTests(year).enqueue(new Callback<TestsRemote>() {
                     @Override
                     public void onResponse(Call<TestsRemote> call, Response<TestsRemote> response) {
                         if(response.body()!=null){
@@ -82,4 +83,5 @@ public class DataFlowImpl implements DataFlowRepository {
     public void dropTable() {
         testDao.deletDatabase();
     }
+
 }
