@@ -27,5 +27,26 @@ public class TextUtils {
         }
         return longs;
     }
+    public static  int getQuestionById(String Qsolve , long id ){
+        String s= "";
+        long bla  ;
+        int i =0 ;
+              for (char c : Qsolve.toCharArray()){
+                 if(c=='@'){
+                    bla = Long.parseLong(s);
+                    if (bla ==id){
+                        return Integer.parseInt(Qsolve.substring(i+1, i+3));
+                    }else {
+                        s="";
+                    }
+                 }else if(c==':'){
+                     s="";
+                 }else{
+                     s=s+c;
+                 }
+                  i++ ;
+              }
+              return 0;
+    }
 
 }

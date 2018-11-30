@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main.Profile;
 
+import android.util.Log;
+
 import java.util.List;
 
 import androidx.lifecycle.ViewModelProviders;
@@ -11,6 +13,8 @@ import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.Authentific
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
+
+import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implements ContractProfile.PRESENTER {
 
@@ -35,6 +39,7 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
             @Override
             public void onNext(List<Test> tests) {
                 viewModel.setTests(tests);
+                Log.d(TAG, "onNext: "+tests.size());
                 if (tests == null || tests.size() == 0) getView().showMessage("list est vide");
                 else getView().showMessage("list n'est pas vide");
                 //TODO notify adapter

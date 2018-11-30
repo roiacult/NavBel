@@ -2,6 +2,7 @@ package oxxy.kero.roiaculte.team7.khbich.dagger.component;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
@@ -31,5 +32,6 @@ public interface AppComponent {
     LocalDatabase localDatabase();
     AuthentificationRepository getAuthRepo();
     DataFlowRepository getDataFlowReop();
+    SharedPreferences sharedpreference();
 
 }
