@@ -59,6 +59,11 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
     }
 
     @Override
+    public void signOutUser() {
+
+    }
+
+    @Override
     public void AddUserLocal(UserView userView) {
         preference.LogUserIn(userView);
     }
@@ -73,8 +78,4 @@ public class AuthentificationImpl extends BasRepository implements Authentificat
         executeCompletable(auth.updateUserData(userView), observer);
     }
 
-    @Override
-    public void SignUserOut(DisposableCompletableObserver observer) {
-        //todo when the user sign out we will remove all his data *.*
-    }
 }

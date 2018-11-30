@@ -66,4 +66,8 @@ public class MainSharedReference {
                , preferences.getInt(LEVEL, 0)));
         return liveData;
    }
-}
+   public void signUserOut(){
+        SharedPreferences.Editor editor= preferences.edit();
+        editor.putBoolean(IS_USER_LOGGED, false);
+   }
+        }

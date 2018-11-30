@@ -16,11 +16,10 @@ public interface AuthentificationRepository {
      LiveData<UserState> checkUser(String mail);
 
      LiveData<Boolean> isUserLoggedIn();
-
+      void signOutUser();
 //     LiveData<UserView> login(String mail, String password);
      void login(String mail , String password, DisposableObserver<UserView> observer);
      void AddUserLocal (UserView userView);
      LiveData<UserView> getUserLocal();
      void UpdateDataUser(UserView userView, DisposableCompletableObserver observer);
-     void SignUserOut(DisposableCompletableObserver observer);
 }
