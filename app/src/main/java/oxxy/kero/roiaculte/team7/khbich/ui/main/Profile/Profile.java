@@ -1,11 +1,19 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main.Profile;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import javax.inject.Inject;
 
@@ -17,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
 import oxxy.kero.roiaculte.team7.khbich.R;
+import oxxy.kero.roiaculte.team7.khbich.Utils.ImageUtil;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseFragment;
@@ -146,12 +155,13 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
             }
 
             public void upDateCard(Test test){
-//                binding.name.setText(test.getName());
-//                binding.note.setText(test.getPoints());
-//                String str=preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED","");
-//                int nb = TextUtils.getQuestionById(str, test.getId());//this will have the number of the question solved
-//                binding.numbreOfQuestions.setText(String.valueOf(nb)+"/"+test.getNumberQuestion());
+                binding.name.setText(test.getName());
 
+                String str=preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED","");
+                int nb = TextUtils.getQuestionById(str, test.getId());//this will have the number of the question solved
+                binding.numbreOfQuestionsSolved.setText("numbre of questions solved : "+String.valueOf(nb));
+                binding.note.setText(String.valueOf(test.getNumberQuestion()));
+                binding.totalnote.setText(String.valueOf(test.getPoints()));
             }
         }
     }
@@ -162,9 +172,31 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
             adapter = new TestAdapter();
             binding.recycler.setAdapter(adapter);
         }
+        if (viewModel.getTests() == null) showMessage("list in view est vide");
 
         adapter.listOfTests.addAll(viewModel.getTests());
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void setImage(Uri path) {
+//        binding.circleImageView.setImageBitmap(MediaStore.Images.Media..decodeFile(path));
+        binding.circleImageView.setImageURI(path);
+        Picasso.get().load(path).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                binding.circleImageView.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+    }
 }

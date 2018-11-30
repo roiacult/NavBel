@@ -1,5 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main.Profile;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import oxxy.kero.roiaculte.team7.khbich.base.MvpBasePresenter;
@@ -16,6 +18,7 @@ public class ContractProfile {
         void setLevel(String level);
         void setTests(String tests);
         void notifyAdapter();
+        void setImage(Uri path);
     }
 
     public interface PRESENTER extends MvpBasePresenter<ContractProfile.VIEW> {

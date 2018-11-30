@@ -53,14 +53,12 @@ binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelecte
             case 3:
                 if (profile == null) profile = new Profile();
                         getSupportFragmentManager().beginTransaction()
-                                .addToBackStack("profile")
                                 .replace(R.id.main_container,profile)
                                 .commit();
                         break;
             case R.id.navigation_home:
                 if (home == null) home = new Home();
                 getSupportFragmentManager().beginTransaction()
-                        .addToBackStack("profile")
                         .replace(R.id.main_container,home)
                         .commit();
 

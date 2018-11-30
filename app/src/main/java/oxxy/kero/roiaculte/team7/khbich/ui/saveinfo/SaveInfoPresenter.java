@@ -3,6 +3,7 @@ package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -100,7 +101,10 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK && result.getUri() != null){
-                    viewModel.getUserView().setPicture(result.getUri().toString());
+
+//                Uri path =ImageUtil.getImage(getView().getBaseActivity(),result.getUri().toString(),"profile.jpg");
+
+                viewModel.getUserView().setPicture(result.getUri().toString());
                     Log.d(TAG, "onActivityResult: "+viewModel.getUserView().getPicture());
                     getView().setImage(viewModel.getUserView().getPicture());
 

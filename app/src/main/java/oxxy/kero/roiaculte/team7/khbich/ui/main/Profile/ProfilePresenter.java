@@ -42,9 +42,12 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
                 Log.d(TAG, "onNext: "+"bsbsbsbbsb");
                 Log.d(TAG, "onNext: "+tests.size());
                 if (tests == null || tests.size() == 0) getView().showMessage("list est vide");
-                else getView().showMessage("list n'est pas vide");
-                //TODO notify adapter
-                getView().notifyAdapter();
+                else {
+                    getView().showMessage("list n'est pas vide");
+                    //TODO notify adapter
+                    getView().notifyAdapter();
+                }
+
             }
 
             @Override
@@ -72,6 +75,7 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
             getView().setPoint(String.valueOf(userView.getPoints()));
 
             getView().setTests(String.valueOf(qSoleved.length()-qSoleved.replace("@","").length()));
+            getView().setImage(userView.getPictureUri());
         }
     }
 }
