@@ -14,8 +14,10 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 @Dao
 public interface TestDao {
     @Insert
-    Completable InsertFromRempte(List<Test> tests);
+    Completable InsertFromRempte( final List<Test> tests);
      @Query("delete from Test")
     void deleteTable();
+     @Query("SELECT *FROM Test WHERE Id =:id")
+     Test getTest(long id );
 
 }

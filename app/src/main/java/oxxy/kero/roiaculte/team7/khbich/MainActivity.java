@@ -9,6 +9,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
+import oxxy.kero.roiaculte.team7.khbich.Utils.TextUtils;
 import oxxy.kero.roiaculte.team7.khbich.Utils.UserConverter;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Message;
@@ -32,6 +33,7 @@ import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -48,8 +50,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getApplicationComponent().inject(this);
-        data.getTests("1");
-
+//        data.getTests("1");
 //        repository.UpdateDataUser(new UserView("Nikmok", "a", "picture", "password", UserState.USER_2CPI, 250, Calendar.getInstance().getTime(),
 //                "qsolved", 12), new DisposableCompletableObserver() {
 //            @Override

@@ -3,14 +3,21 @@ package oxxy.kero.roiaculte.team7.khbich.model.repositories.remote;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableObserver;
 import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TestConverter;
+import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalData;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos.TestDao;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.sharedReference.MainSharedReference;
@@ -63,4 +70,12 @@ public class DataFlowImpl implements DataFlowRepository {
             }
         }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote)));
     }
+
+    @Override
+    public void getTestSolved(DisposableObserver<List<Test>> tests) {
+          testDao.getTestSolved(preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED", ""))
+                  .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+                  .subscribeWith(tests);
+    }
+
 }
