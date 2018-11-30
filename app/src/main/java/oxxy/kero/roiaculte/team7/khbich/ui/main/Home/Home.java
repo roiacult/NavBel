@@ -2,6 +2,7 @@ package oxxy.kero.roiaculte.team7.khbich.ui.main.Home;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SortedList;
@@ -28,6 +30,9 @@ import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRep
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
 
 public class Home extends BaseFragment {
+
+
+    public static String TEST_ID= "test_id";
 
     private MainHomeBinding binding;
     private TestAdapter adapter;
@@ -77,17 +82,18 @@ public class Home extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.main,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.main_home,container,false);
         getComponent().inject(this);
-
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         if (adapter == null) adapter = new TestAdapter();
         if (viewModel.getTests() != null)adapter.testSortedList.addAll(viewModel.getTests());
-        dataFlowRepository.getTestSolved(new TestObserver<Test>());
+        else dataFlowRepository.getAllTests(new TestObserver<Test>());
         binding.tests.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
         binding.tests.setLayoutManager(manager);
+        binding.tests.setHasFixedSize(true);
 
         return binding.getRoot();
     }
@@ -99,17 +105,20 @@ public class Home extends BaseFragment {
         @NonNull
         @Override
         public TestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return null;
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            MainMainCardBinding binding = DataBindingUtil.inflate(inflater,R.layout.main_main_card,parent,false);
+
+            return new TestHolder(binding);
         }
 
         @Override
         public void onBindViewHolder(@NonNull TestHolder holder, int position) {
-
+            holder.upaDateUi(testSortedList.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return testSortedList.size();
         }
 
         class TestHolder extends RecyclerView.ViewHolder{
@@ -130,6 +139,8 @@ public class Home extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         //TODO start testActivity
+                        Intent intent = new Intent(getContext(), Test.class);
+                        intent.putExtra(TEST_ID,test.getId());
                     }
                 });
                 binding.button2.setOnClickListener(new View.OnClickListener() {

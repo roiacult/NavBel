@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 import oxxy.kero.roiaculte.team7.khbich.Utils.JobExecutor;
 import oxxy.kero.roiaculte.team7.khbich.Utils.QuestionConvertere;
 import oxxy.kero.roiaculte.team7.khbich.Utils.TestConverter;
+import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 import oxxy.kero.roiaculte.team7.khbich.model.models.QuestionConverter;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.LocalData;
@@ -118,6 +119,11 @@ public class DataFlowImpl implements DataFlowRepository {
 
     @Override
     public void getAllTests(DisposableObserver<List<Test>> listDisposableObserver) {
+
+    }
+
+    @Override
+    public void getQuestionFromTest(DisposableObserver<List<Question>> qutionsObserver, long testId) {
 
     }
 }
