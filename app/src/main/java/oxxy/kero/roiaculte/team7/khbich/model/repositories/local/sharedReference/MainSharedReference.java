@@ -65,6 +65,5 @@ public class MainSharedReference {
                ,preferences.getString(QSOLVED, "qsolved")
                , preferences.getInt(LEVEL, 0)));
         return liveData;
-                //todo set correctly the date
    }
 }
