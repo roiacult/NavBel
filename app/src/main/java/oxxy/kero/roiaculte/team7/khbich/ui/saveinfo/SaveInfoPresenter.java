@@ -58,7 +58,7 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
 
         @Override
         public void onComplete() {
-            //TODO open main
+            //TODO open Home
             repo.AddUserLocal(viewModel.getUserView());
             getView().getBaseActivity().startActivity(new Intent(getView().getBaseActivity(),Main.class));
             getView().getBaseActivity().finish();
@@ -100,14 +100,10 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK && result.getUri() != null){
-                try {
-                    viewModel.getUserView().setPicture(ImageUtil.convert(MediaStore.Images.Media.getBitmap(getView().getBaseActivity().getContentResolver(),result.getUri())));
-
+                    viewModel.getUserView().setPicture(result.getUri().toString());
                     Log.d(TAG, "onActivityResult: "+viewModel.getUserView().getPicture());
                     getView().setImage(viewModel.getUserView().getPicture());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         }
     }

@@ -3,10 +3,16 @@ package oxxy.kero.roiaculte.team7.khbich.ui.saveinfo;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -119,6 +125,26 @@ public class SaveInfo extends BaseActivity implements ContractSaveInfo.VIEW {
 
     @Override
     public void setImage(String img) {
-        binding.signeInImage.setImageBitmap(ImageUtil.convert(img));
+
+        showMessage("setting image");
+        Uri uri=Uri.parse(img);
+        binding.signeInImage.setImageURI(uri);
+        Picasso.get().load(Uri.parse(img)).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                binding.signeInImage.setImageBitmap(bitmap);
+                showMessage("image set");
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                showMessage("error in loading image");
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
     }
 }

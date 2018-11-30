@@ -7,15 +7,15 @@ public class YearConverter {
     public static String from(UserState state){
         String year;
         switch (state){
-            case USER_1CS:year = "1CS";
+            case Cs1:year = "1CS";
             break;
-            case USER_2CS:year = "2CS";
+            case Cs2:year = "2CS";
             break;
-            case USER_3CS:year = "3CS";
+            case Cs3:year = "3CS";
             break;
-            case  USER_1CPI:year = "1CPi";
+            case Cpi1:year = "1CPi";
             break;
-            case USER_2CPI: year = "2CPi";
+            case Cpi2: year = "2CPi";
             break;
             default:year = "Don't exist";
         }
@@ -27,15 +27,15 @@ public class YearConverter {
         UserState state ;
 
         switch (year){
-            case "1CS":  state = UserState.USER_1CS;
+            case "1CS":  state = UserState.Cs1;
             break;
-            case "2CS": state = UserState.USER_2CS;
+            case "2CS": state = UserState.Cs2;
             break;
-            case  "3CS" :state = UserState.USER_3CS;
+            case  "3CS" :state = UserState.Cs3;
             break;
-            case "1CPi" :state = UserState.USER_1CPI;
+            case "1CPi" :state = UserState.Cpi1;
             break;
-            case  "2CPi" : state =UserState.USER_2CPI;
+            case  "2CPi" : state =UserState.Cpi2;
             break;
             default: state = UserState.USER_DONT_EXISTE;
         }

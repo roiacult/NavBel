@@ -115,4 +115,9 @@ public class DataFlowImpl implements DataFlowRepository {
         testDao.deletDatabase();
     }
 
+
+    @Override
+    public void getAllTests(DisposableObserver<List<Test>> listDisposableObserver) {
+
+    }
 }

@@ -1,5 +1,5 @@
 package oxxy.kero.roiaculte.team7.khbich.model.models;
 
 public enum UserState {
-    USER_ALREADY_REGISTRED , USER_DONT_EXISTE, USER_1CPI, USER_2CPI, USER_1CS, USER_2CS, USER_3CS
+    USER_ALREADY_REGISTRED , USER_DONT_EXISTE, Cpi1, Cpi2, Cs1, Cs2, Cs3
 }

@@ -16,11 +16,11 @@ public class UserConverter {
         switch (userState){
             case -1 : return UserState.USER_ALREADY_REGISTRED;
             case 0 :return UserState.USER_DONT_EXISTE;
-            case 1 :return  UserState.USER_1CPI ;
-            case 2 :return UserState.USER_2CPI;
-            case 3: return UserState.USER_1CS ;
-            case 4 : return UserState.USER_2CS;
-            case  5 : return UserState.USER_3CS ;
+            case 1 :return  UserState.Cpi1;
+            case 2 :return UserState.Cpi2;
+            case 3: return UserState.Cs1;
+            case 4 : return UserState.Cs2;
+            case  5 : return UserState.Cs3;
             default:return UserState.USER_DONT_EXISTE;
         }
     }
@@ -29,11 +29,11 @@ public class UserConverter {
         switch (state){
             case USER_DONT_EXISTE: return 0;
             case USER_ALREADY_REGISTRED: return -1;
-            case USER_1CPI: return  1 ;
-            case USER_2CPI: return 2;
-            case USER_1CS: return 3 ;
-            case USER_2CS: return 4;
-            case  USER_3CS: return 5;
+            case Cpi1: return  1 ;
+            case Cpi2: return 2;
+            case Cs1: return 3 ;
+            case Cs2: return 4;
+            case Cs3: return 5;
             default:return 0;
         }
     }

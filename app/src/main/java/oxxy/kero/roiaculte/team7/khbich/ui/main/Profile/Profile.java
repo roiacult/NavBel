@@ -146,11 +146,11 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
             }
 
             public void upDateCard(Test test){
-                binding.name.setText(test.getName());
-                binding.note.setText(test.getPoints());
-                String str=preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED","");
-                int nb = TextUtils.getQuestionById(str, test.getId());//this will have the number of the question solved
-                binding.numbreOfQuestions.setText(String.valueOf(nb)+"/"+test.getNumberQuestion());
+//                binding.name.setText(test.getName());
+//                binding.note.setText(test.getPoints());
+//                String str=preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED","");
+//                int nb = TextUtils.getQuestionById(str, test.getId());//this will have the number of the question solved
+//                binding.numbreOfQuestions.setText(String.valueOf(nb)+"/"+test.getNumberQuestion());
 
             }
         }

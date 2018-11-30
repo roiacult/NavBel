@@ -20,6 +20,7 @@ import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
 import oxxy.kero.roiaculte.team7.khbich.databinding.MainBinding;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.AuthentificationRepository;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.main.Home.Home;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Profile.Profile;
 import oxxy.kero.roiaculte.team7.khbich.ui.registration.Registration;
 
@@ -30,6 +31,7 @@ public class Main extends BaseActivity {
     @Inject DataFlowRepository flowRepository;
 
     private Profile profile;
+    private Home home;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,40 +56,25 @@ binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelecte
                                 .addToBackStack("profile")
                                 .replace(R.id.main_container,profile)
                                 .commit();
+                        break;
+            case R.id.navigation_home:
+                if (home == null) home = new Home();
+                getSupportFragmentManager().beginTransaction()
+                        .addToBackStack("profile")
+                        .replace(R.id.main_container,profile)
+                        .commit();
+
+                        break;
+            case R.id.navigation_Forum:
+
+                        break;
+            case R.id.navigation_rewards:
+                        break;
         }
         return true;
     }
 });
 
-//  todo ida ma3jbatkch hadi ta9der t3wed treje3 l 9dima 3dk bedel l id ta3ha f xml l navigation
-
-//                binding.navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//
-//                switch (menuItem.getItemId()){
-//                    case R.id.navigation_home:
-//                        break;
-//                    case R.id.navigation_Forum:
-//
-//                        break;
-//                    case R.id.navigation_rewards:
-//                        break;
-//                    case R.id.navigation_profile:
-//                          menuItem.setEnabled(true);
-//                        if (profile == null) profile = new Profile();
-//                        getSupportFragmentManager().beginTransaction()
-//                                .addToBackStack("profile")
-//                                .replace(R.id.main_container,profile)
-//                                .commit();
-//                        break;
-//
-//                }
-//
-//
-//                return false;
-//            }
-//        });
 
 
     }

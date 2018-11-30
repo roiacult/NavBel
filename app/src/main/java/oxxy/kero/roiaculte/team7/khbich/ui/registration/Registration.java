@@ -98,6 +98,6 @@ public class Registration  extends BaseActivity {
     }
 
     public void goToMain(){
-        //todo go to main
+        //todo go to Home
     }
 }
