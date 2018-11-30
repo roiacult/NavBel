@@ -29,7 +29,10 @@ public class RemoteData {
         String Key = KeyCrypting.CrypteIt();
        return dao.getTests(year, Key);
     }
-//    public Call<QuestionRemote> getQuestion
+    public Call<QuestionRemote> getQuestions(String year){
+        String Key = KeyCrypting.CrypteIt();
+        return dao.getQuestions(year , Key);
+    }
 
 
 
