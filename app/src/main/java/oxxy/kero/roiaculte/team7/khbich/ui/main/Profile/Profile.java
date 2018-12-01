@@ -101,6 +101,7 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
         binding.recycler.setAdapter(adapter);
         binding.recycler.setLayoutManager(manager);
 
+
         return binding.getRoot();
     }
 

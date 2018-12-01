@@ -92,7 +92,7 @@ public class Authentification {
         }
          Uri uri = Uri.parse(file.getAbsolutePath());
         SharedPreferences.Editor editor= preferences.edit();
-        editor.putString("oxxy.kero.roiaculte.team7.khbich.USERPICTURE", uri.toString());
+        editor.putString("oxxy.kero.roiaculte.team7.khbich.USERPICTURE", uri.toString()).commit();
 //        encodeImagetoString(Key); //todo image save user
          return Completable.create(new CompletableOnSubscribe() {
              @Override

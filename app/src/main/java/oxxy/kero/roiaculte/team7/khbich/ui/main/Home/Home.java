@@ -178,6 +178,7 @@ public class Home extends BaseFragment {
             viewModel.setTests(tests);
             adapter.testSortedList.addAll(tests);
             adapter.notifyDataSetChanged();
+            showMessage("Size is -> "+String.valueOf(tests.size()));
         }
 
         @Override

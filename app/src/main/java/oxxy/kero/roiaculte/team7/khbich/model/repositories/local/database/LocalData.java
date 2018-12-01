@@ -38,7 +38,7 @@ public class LocalData {
              ) {
             if(TextUtils.IsSolved(test.getId(), longs)){
                 test.setResolved(true);
-            }
+            }else test.setResolved(false);
         }
         return dao.InsertFromRempte(tests);
     }
@@ -64,11 +64,14 @@ public Observable<List<Test>> getTestSolved(){
 }
 
     public void getQuestioTest(long testId, DisposableObserver<List<Question>> questions){
-        questionDao.getQuestionById(testId).subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+        questionDao.getQuestionById(testId).subscribeOn(Schedulers.from(new JobExecutor()))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(questions);
 
     }
 
 
-
+    public Observable<List<Test>> getEverything(){
+        return dao.getTests();
+    }
 }

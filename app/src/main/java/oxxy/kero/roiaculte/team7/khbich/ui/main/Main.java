@@ -46,7 +46,7 @@ binding.navigatione.addItem(new AHBottomNavigationItem(R.string.main, R.drawable
          binding.navigatione.setDefaultBackgroundColor(Color.parseColor("#ffffff"));
          binding.navigatione.setForceTint(true);
       binding.navigatione.setTitleState(AHBottomNavigation.TitleState.SHOW_WHEN_ACTIVE);
-binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+    binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
     @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
         switch (position){
@@ -55,23 +55,29 @@ binding.navigatione.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelecte
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.main_container,profile)
                                 .commit();
+                        getSupportActionBar().setTitle("Profle");
+
                         break;
-            case R.id.navigation_home:
+            case 0:
                 if (home == null) home = new Home();
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container,home)
                         .commit();
+                getSupportActionBar().setTitle("Home");
 
                         break;
-            case R.id.navigation_Forum:
-
+            case 1:
+                getSupportActionBar().setTitle("Forum");
                         break;
-            case R.id.navigation_rewards:
+            case 2:
+                getSupportActionBar().setTitle("Rewards");
                         break;
         }
         return true;
     }
 });
+
+    binding.navigatione.setCurrentItem(0);
 
 
 

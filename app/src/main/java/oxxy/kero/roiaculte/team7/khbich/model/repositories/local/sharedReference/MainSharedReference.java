@@ -38,7 +38,7 @@ public class MainSharedReference {
          editor.putString(USER_PASSWORD, userView.getPassword());
          editor.putString(USER_NAME , userView.getName());
          editor.putString(USER_MAIL, userView.getEmail());
-         editor.putString(USER_PICTURE, userView.getPassword());
+         editor.putString(USER_PICTURE, userView.getPicture());
          editor.putInt(USER_YEAR, UserConverter.froUserState(userView.getYear()));
          editor.putInt(USER_POINT, userView.getPoints());
          editor.putString(QSOLVED, userView.getQsolved());
