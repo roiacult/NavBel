@@ -33,6 +33,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.content.Context;
+import android.content.pm.LabeledIntent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -53,8 +54,8 @@ public class MainActivity extends BaseActivity {
 //DataFlowRepository data ;
 //   @Inject
 //    RemoteData data;
-    @Inject
-    LocalData data ;
+//    @Inject
+//    LocalData data ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,18 +66,20 @@ public class MainActivity extends BaseActivity {
         longs.add(Long.valueOf(12));
         tests.add(new Test(164,  "namse", "descriptizzonE","imageUrl", 30, UserState.Cs1,
                 3));
-        tests.get(0).setResolved(true);
-                data.saveTests(tests, longs).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor())).subscribeWith(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        Log.d(TAG, "onComplete: ");
-                    }
+//        tests.get(0).setResolved(true);
 
-                    @Override
-                    public void onError(Throwable e) {
 
-                    }
-                });
+//                data.saveTests(tests, longs).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.from(new JobExecutor())).subscribeWith(new DisposableCompletableObserver() {
+//                    @Override
+//                    public void onComplete() {
+//                        Log.d(TAG, "onComplete: ");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//                });
 //        data.getTestSolved(new DisposableObserver<List<Test>>() {
 //                            @Override
 //                            public void onNext(List<Test> tests) {

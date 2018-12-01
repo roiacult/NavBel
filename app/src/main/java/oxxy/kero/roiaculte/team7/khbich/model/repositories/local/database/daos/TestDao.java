@@ -1,6 +1,7 @@
 package oxxy.kero.roiaculte.team7.khbich.model.repositories.local.database.daos;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ public interface TestDao {
     void deleteTable();
      @Query("SELECT * FROM Test WHERE isResolved = :bool")
      Observable<List<Test>> getTestResolved(boolean bool);
+
      @Query("SELECT * FROM Test ")
     Observable<List<Test>> getTests();
 

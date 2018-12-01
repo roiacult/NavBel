@@ -1,5 +1,6 @@
 package oxxy.kero.roiaculte.team7.khbich.ui.main.Profile;
 
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.List;
@@ -75,7 +76,8 @@ public class ProfilePresenter extends BasePresenter<ContractProfile.VIEW> implem
             getView().setPoint(String.valueOf(userView.getPoints()));
 
             getView().setTests(String.valueOf(qSoleved.length()-qSoleved.replace("@","").length()));
-            getView().setImage(userView.getPictureUri());
+            Uri uri = Uri.parse(userView.getPicture());
+            getView().setImage(uri);
         }
     }
 }

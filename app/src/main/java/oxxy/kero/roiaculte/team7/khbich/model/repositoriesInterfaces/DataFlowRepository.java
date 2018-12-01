@@ -16,6 +16,5 @@ public interface DataFlowRepository {
     void getTestSolved(DisposableObserver<List<Test>> tests);
     void dropTable();
     void getAllTests(DisposableObserver<List<Test>> listDisposableObserver);
-
     void getQuestionFromTest(DisposableObserver<List<Question>> questionObserver, long id);
 }

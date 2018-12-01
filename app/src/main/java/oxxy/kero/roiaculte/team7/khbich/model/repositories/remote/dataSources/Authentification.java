@@ -2,6 +2,8 @@ package oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,7 +19,11 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.inject.Inject;
 
@@ -51,6 +57,8 @@ public class Authentification {
     String fileName ;
     private String encodedString;
     Context context;
+    @Inject
+    SharedPreferences preferences;
 
     @Inject
     public Authentification(Retrofit retrofit, Context context) {
@@ -58,15 +66,38 @@ public class Authentification {
         this.context= context;
     }
 
-    public Completable SignUpUser(final UserView user) {
+    public Completable SignUpUser(final UserView user)  {
          final String Key  = KeyCrypting.CrypteIt();
         final User userz = UserConverter.fromViewToRemote(user);
-//        ImageUri = user.getPictureUri();
+         ImageUri = user.getPictureUri() ;
+        Bitmap  b=null ;
+        try {
+            b = MediaStore.Images.Media.getBitmap(context.getContentResolver(),ImageUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ContextWrapper wrapper = new ContextWrapper(context);
+         File file = wrapper.getDir("Images", Context.MODE_PRIVATE);
+        file = new File(file, user.getName()+".jpg");
+        OutputStream stream = null ;
+        try {
+            stream = new FileOutputStream(file);
+            b.compress(Bitmap.CompressFormat.JPEG, 100,stream );
+            stream.flush();
+            stream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         Uri uri = Uri.parse(file.getAbsolutePath());
+        SharedPreferences.Editor editor= preferences.edit();
+        editor.putString("oxxy.kero.roiaculte.team7.khbich.USERPICTURE", uri.toString());
 //        encodeImagetoString(Key); //todo image save user
          return Completable.create(new CompletableOnSubscribe() {
              @Override
              public void subscribe(final CompletableEmitter emitter) throws Exception {
-                 userz.setPicture("http://192.168.43.68/project/index.php?op=img?sey=");
+                 userz.setPicture("http://192.168.43.68/project/index.php?op=img?skey=");
                  dao.saveUser(userz, Key).enqueue(new Callback<Message>() {
                      @Override
                      public void onResponse(Call<Message> call, Response<Message> response) {

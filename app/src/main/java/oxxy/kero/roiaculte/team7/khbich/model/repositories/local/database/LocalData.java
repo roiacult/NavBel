@@ -34,18 +34,21 @@ public class LocalData {
 
     public Completable saveTests(List<Test> tests, List<Long> longs){
         Log.d(TAG, "saveTests:  "+String.valueOf(tests.size()));
-//        for (Test test:tests
-//             ) {
-//            if(TextUtils.IsSolved(test.getId(), longs)){
-//                test.setResolved(true);
-//            }
-//        }
+        for (Test test:tests
+             ) {
+            if(TextUtils.IsSolved(test.getId(), longs)){
+                test.setResolved(true);
+            }
+        }
         return dao.InsertFromRempte(tests);
     }
-public void getAllTest(DisposableObserver<List<Test>> observer){
-      dao.getTests().observeOn(AndroidSchedulers
-              .mainThread()).subscribeOn(Schedulers.from(new JobExecutor())).subscribeWith(observer);
 
+public void getUresolvedTests(DisposableObserver<List<Test>> observer){
+      dao.getTestResolved(false).
+              observeOn(AndroidSchedulers
+              .mainThread())
+              .subscribeOn(Schedulers.from(new JobExecutor()))
+              .subscribeWith(observer);
 }
 public void deletDatabase()
 {
@@ -59,5 +62,13 @@ public void deletDatabase()
 public Observable<List<Test>> getTestSolved(){
         return dao.getTestResolved(true);
 }
+
+    public void getQuestioTest(long testId, DisposableObserver<List<Question>> questions){
+        questionDao.getQuestionById(testId).subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(questions);
+
+    }
+
+
 
 }

@@ -81,42 +81,42 @@ public class DataFlowImpl implements DataFlowRepository {
                 });
             }
         }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote), longs))
-                .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);
+                .andThen(Completable.create(new CompletableOnSubscribe() {
+            @Override
+            public void subscribe(final CompletableEmitter emitter) throws Exception {
+                data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
+                    @Override
+                    public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
+                        if (response.body() != null) {
+                            questionRemote = response.body();
+                            emitter.onComplete();
+                        }
+                        Log.d(TAG, "onResponse: " + response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<QuestionsRemote> call, Throwable t) {
+                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                        Log.d(TAG, "onFailure: " + t.getMessage());
+                        t.printStackTrace();
+                        emitter.onError(t);
+                    }
+                });
+            }
+        })).andThen(Completable.fromAction(new Action() {
+            @Override
+            public void run() throws Exception {
+                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
+            }
+        })).subscribeOn(Schedulers.from(new JobExecutor()))
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);
     }
-//.andThen(Completable.create(new CompletableOnSubscribe() {
-//            @Override
-//            public void subscribe(final CompletableEmitter emitter) throws Exception {
-//                data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
-//                    @Override
-//                    public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
-//                        if (response.body() != null) {
-//                            questionRemote = response.body();
-//                            emitter.onComplete();
-//                        }
-//                        Log.d(TAG, "onResponse: " + response.message());
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<QuestionsRemote> call, Throwable t) {
-//                        Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-//                        Log.d(TAG, "onFailure: " + t.getMessage());
-//                        t.printStackTrace();
-//                        emitter.onError(t);
-//                    }
-//                });
-//            }
-//        })).andThen(Completable.fromAction(new Action() {
-//            @Override
-//            public void run() throws Exception {
-//                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
-//            }
-//        }))
+
     @Override
     public void getTestSolved(DisposableObserver<List<Test>> tests) {
-        testDao.getAllTest(tests);
-//          testDao.getTestSoved()
-//                  .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
-//                  .subscribeWith(tests);
+          testDao.getTestSolved()
+                  .subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+                  .subscribeWith(tests);
     }
 
     @Override
@@ -128,11 +128,11 @@ public class DataFlowImpl implements DataFlowRepository {
 
     @Override
     public void getAllTests(DisposableObserver<List<Test>> listDisposableObserver){
-
+            testDao.getUresolvedTests(listDisposableObserver);
     }
 
     @Override
     public void getQuestionFromTest(DisposableObserver<List<Question>> questionObserver, long id) {
-
+         testDao.getQuestioTest(id, questionObserver);
     }
 }

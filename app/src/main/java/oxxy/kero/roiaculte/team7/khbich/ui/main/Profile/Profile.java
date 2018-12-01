@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.Main;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
+
+import static oxxy.kero.roiaculte.team7.khbich.model.repositories.remote.dataSources.Authentification.TAG;
 
 public class Profile extends BaseFragment implements ContractProfile.VIEW {
 
@@ -180,6 +183,7 @@ public class Profile extends BaseFragment implements ContractProfile.VIEW {
 
     @Override
     public void setImage(Uri path) {
+        Log.d(TAG, "setImage: "+path.getPath());
 //        binding.circleImageView.setImageBitmap(MediaStore.Images.Media..decodeFile(path));
         binding.circleImageView.setImageURI(path);
         Picasso.get().load(path).into(new Target() {
