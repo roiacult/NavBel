@@ -67,28 +67,28 @@ public class MainActivity extends BaseActivity {
         longs.add(Long.valueOf(12));
         tests.add(new Test(164,  "namse", "descriptizzonE","imageUrl", 30, UserState.Cs1,
                 3));
-         data.getEverything().subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
-                 .subscribeWith(new Observer<List<Test>>() {
-                     @Override
-                     public void onSubscribe(Disposable d) {
-
-                     }
-
-                     @Override
-                     public void onNext(List<Test> tests) {
-                         Log.d(TAG, "onNext: "+String.valueOf(tests.size()));
-                     }
-
-                     @Override
-                     public void onError(Throwable e) {
-
-                     }
-
-                     @Override
-                     public void onComplete() {
-
-                     }
-                 }); 
+//         data.getEverything().subscribeOn(Schedulers.from(new JobExecutor())).observeOn(AndroidSchedulers.mainThread())
+//                 .subscribeWith(new Observer<List<Test>>() {
+//                     @Override
+//                     public void onSubscribe(Disposable d) {
+//
+//                     }
+//
+//                     @Override
+//                     public void onNext(List<Test> tests) {
+//                         Log.d(TAG, "onNext: "+String.valueOf(tests.size()));
+//                     }
+//
+//                     @Override
+//                     public void onError(Throwable e) {
+//
+//                     }
+//
+//                     @Override
+//                     public void onComplete() {
+//
+//                     }
+//                 });
 //        tests.get(0).setResolved(true);
 
 

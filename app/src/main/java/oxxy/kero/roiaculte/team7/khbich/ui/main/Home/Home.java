@@ -3,11 +3,16 @@ package oxxy.kero.roiaculte.team7.khbich.ui.main.Home;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -135,8 +140,7 @@ public class Home extends BaseFragment {
             }
 
             public void upaDateUi(final Test test){
-                Uri uri = Uri.parse(test.getImageUrl());
-                binding.imageView.setImageURI(uri);
+                Picasso.get().load(test.getImageUrl()).into(binding.imageView);
                 binding.textView.setText(test.getName());
                 binding.textView3.setText(test.getDescription());
                 binding.button.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +160,8 @@ public class Home extends BaseFragment {
                         builder.setMessage(
                                 test.getName()+"\n"
                                 +test.getDescription() +"\n"
-                                +"numbre of question "+String.valueOf(test.getNumberQuestion())
-                                +"total points "+test.getPoints()
+                                +"numbre of question "+String.valueOf(test.getNumberQuestion())+'\n'
+                                +"total points "+test.getPoints()+"\n"
                                 +"Year --> "+test.getYear()
                         );
 
@@ -182,8 +186,6 @@ public class Home extends BaseFragment {
             viewModel.setTests(tests);
             adapter.testSortedList.addAll(tests);
             adapter.notifyDataSetChanged();
-
-            showMessage("Size"+String.valueOf(tests.size()));
         }
 
         @Override

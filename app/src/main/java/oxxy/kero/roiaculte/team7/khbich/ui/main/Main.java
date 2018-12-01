@@ -77,7 +77,7 @@ binding.navigatione.addItem(new AHBottomNavigationItem(R.string.main, R.drawable
     }
 });
 
-    binding.navigatione.setCurrentItem(0);
+//    binding.navigatione.setCurrentItem(0);
 
 
 
