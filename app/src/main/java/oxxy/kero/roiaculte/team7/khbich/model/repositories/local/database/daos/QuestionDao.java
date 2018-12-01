@@ -13,7 +13,7 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
 @Dao
 public interface QuestionDao {
     @Insert
-    Completable insertQuestionRemote(final List<Question> questionLIst);
+    void insertQuestionRemote(final List<Question> questionLIst);
 
     @Query("SELECT *FROM Question WHERE testId =:testId")
     Observable<List<Question>> getQuestionById(long testId);

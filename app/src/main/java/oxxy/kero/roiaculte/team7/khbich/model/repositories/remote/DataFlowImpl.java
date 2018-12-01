@@ -55,7 +55,7 @@ public class DataFlowImpl implements DataFlowRepository {
                 , 1));
         final String qsolved =  preferences.getString("oxxy.kero.roiaculte.team7.khbich.QSOLVED", "");
         Log.d(TAG, "updateLOcalDatabase:" );
-        List<Long> longs = TextUtils.getLOng(qsolved);
+        final List<Long> longs = TextUtils.getLOng(qsolved);
         Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
@@ -64,6 +64,8 @@ public class DataFlowImpl implements DataFlowRepository {
                     public void onResponse(Call<TestsRemote> call, Response<TestsRemote> response) {
                         if (response.body() != null) {
                             remote = response.body();
+                            Log.d(TAG, "onResponse: "+remote.getTests().length);
+                            testDao.saveTests(TestConverter.fromTestRemote(remote), longs);
                             emitter.onComplete();
                         }
 //                        Log.d(TAG, "onResponse: " + response.body().getTests()[1].getDEsc());
@@ -80,8 +82,7 @@ public class DataFlowImpl implements DataFlowRepository {
                     }
                 });
             }
-        }).andThen(testDao.saveTests(TestConverter.fromTestRemote(remote), longs))
-                .andThen(Completable.create(new CompletableOnSubscribe() {
+        }).andThen(Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(final CompletableEmitter emitter) throws Exception {
                 data.getQuestions(year).enqueue(new Callback<QuestionsRemote>() {
@@ -89,6 +90,7 @@ public class DataFlowImpl implements DataFlowRepository {
                     public void onResponse(Call<QuestionsRemote> call, Response<QuestionsRemote> response) {
                         if (response.body() != null) {
                             questionRemote = response.body();
+                            testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
                             emitter.onComplete();
                         }
                         Log.d(TAG, "onResponse: " + response.message());
@@ -102,11 +104,6 @@ public class DataFlowImpl implements DataFlowRepository {
                         emitter.onError(t);
                     }
                 });
-            }
-        })).andThen(Completable.fromAction(new Action() {
-            @Override
-            public void run() throws Exception {
-                testDao.saveQuestions(QuestionConvertere.fromRemote(questionRemote));
             }
         })).subscribeOn(Schedulers.from(new JobExecutor()))
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(observer);

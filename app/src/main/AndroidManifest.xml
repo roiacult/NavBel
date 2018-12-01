@@ -24,7 +24,7 @@
 
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.splash.SplashScren"
             android:theme="@style/AppTheme.NoActionBar.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

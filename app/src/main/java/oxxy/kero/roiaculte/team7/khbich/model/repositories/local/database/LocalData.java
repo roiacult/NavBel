@@ -32,15 +32,16 @@ public class LocalData {
         this.questionDao = database.questionDao();
     }
 
-    public Completable saveTests(List<Test> tests, List<Long> longs){
+    public void saveTests(List<Test> tests, List<Long> longs){
         Log.d(TAG, "saveTests:  "+String.valueOf(tests.size()));
+        Log.d(TAG, "saveTests: "+String.valueOf(longs.size()));
         for (Test test:tests
              ) {
             if(TextUtils.IsSolved(test.getId(), longs)){
                 test.setResolved(true);
             }else test.setResolved(false);
         }
-        return dao.InsertFromRempte(tests);
+         dao.InsertFromRempte(tests);
     }
 
 public void getUresolvedTests(DisposableObserver<List<Test>> observer){
@@ -55,8 +56,8 @@ public void deletDatabase()
     questionDao.dropTable();
         dao.deleteTable();
 }
-   public Completable saveQuestions(List<Question>questions){
-        return questionDao.insertQuestionRemote(questions);
+   public void saveQuestions(List<Question>questions){
+         questionDao.insertQuestionRemote(questions);
    }
 
 public Observable<List<Test>> getTestSolved(){

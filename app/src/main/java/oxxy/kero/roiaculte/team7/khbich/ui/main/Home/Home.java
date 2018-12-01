@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import oxxy.kero.roiaculte.team7.khbich.databinding.MainMainCardBinding;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
+
+import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class Home extends BaseFragment {
 
@@ -178,7 +181,8 @@ public class Home extends BaseFragment {
             viewModel.setTests(tests);
             adapter.testSortedList.addAll(tests);
             adapter.notifyDataSetChanged();
-            showMessage("Size is -> "+String.valueOf(tests.size()));
+            Log.d(TAG, "onNext: +++++"+String.valueOf(tests.size()));
+//            showMessage("Size is -> "+String.valueOf(tests.size()));
         }
 
         @Override

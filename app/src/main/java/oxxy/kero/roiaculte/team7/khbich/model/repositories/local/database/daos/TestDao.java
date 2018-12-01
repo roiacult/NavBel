@@ -15,7 +15,7 @@ import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 @Dao
 public interface TestDao {
     @Insert
-    Completable InsertFromRempte( final List<Test> tests);
+    void InsertFromRempte( final List<Test> tests);
      @Query("delete from Test")
     void deleteTable();
      @Query("SELECT * FROM Test WHERE isResolved = :bool")

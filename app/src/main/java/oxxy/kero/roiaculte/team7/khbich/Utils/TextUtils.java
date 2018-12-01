@@ -33,14 +33,14 @@ public class TextUtils {
         long bla  ;
         int i =0 ;
               for (char c : Qsolve.toCharArray()){
-                 if(c=='@'){
+                 if(c==':'){
                     bla = Long.parseLong(s);
                     if (bla ==id){
                         return Integer.parseInt(Qsolve.substring(i+1, i+3));
                     }else {
                         s="";
                     }
-                 }else if(c==':'){
+                 }else if(c=='@'){
                      s="";
                  }else{
                      s=s+c;
