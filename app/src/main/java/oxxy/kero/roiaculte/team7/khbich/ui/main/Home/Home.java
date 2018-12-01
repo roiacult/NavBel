@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +28,8 @@ import oxxy.kero.roiaculte.team7.khbich.databinding.MainHomeBinding;
 import oxxy.kero.roiaculte.team7.khbich.databinding.MainMainCardBinding;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Test;
 import oxxy.kero.roiaculte.team7.khbich.model.repositoriesInterfaces.DataFlowRepository;
+import oxxy.kero.roiaculte.team7.khbich.ui.UserView;
 import oxxy.kero.roiaculte.team7.khbich.ui.main.MainViewModel;
-
-import static oxxy.kero.roiaculte.team7.khbich.MainActivity.TAG;
 
 public class Home extends BaseFragment {
 
@@ -88,6 +87,8 @@ public class Home extends BaseFragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.main_home,container,false);
         getComponent().inject(this);
         viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+
+        MutableLiveData<UserView> data = new MutableLiveData<>();
 
         if (adapter == null) adapter = new TestAdapter();
         if (viewModel.getTests() != null)adapter.testSortedList.addAll(viewModel.getTests());
@@ -181,8 +182,8 @@ public class Home extends BaseFragment {
             viewModel.setTests(tests);
             adapter.testSortedList.addAll(tests);
             adapter.notifyDataSetChanged();
-            Log.d(TAG, "onNext: +++++"+String.valueOf(tests.size()));
-//            showMessage("Size is -> "+String.valueOf(tests.size()));
+
+            showMessage("Size"+String.valueOf(tests.size()));
         }
 
         @Override

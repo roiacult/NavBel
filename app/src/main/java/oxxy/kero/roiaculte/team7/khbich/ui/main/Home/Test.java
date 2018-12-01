@@ -22,6 +22,7 @@ import io.reactivex.observers.DisposableObserver;
 import oxxy.kero.roiaculte.team7.khbich.R;
 import oxxy.kero.roiaculte.team7.khbich.Utils.QuestionUtil;
 import oxxy.kero.roiaculte.team7.khbich.base.BaseActivity;
+import oxxy.kero.roiaculte.team7.khbich.databinding.QuestionFillGapsBinding;
 import oxxy.kero.roiaculte.team7.khbich.databinding.QuestionQcmBinding;
 import oxxy.kero.roiaculte.team7.khbich.databinding.TestActivityBinding;
 import oxxy.kero.roiaculte.team7.khbich.model.models.Question;
@@ -209,7 +210,9 @@ public class Test extends BaseActivity {
         public QuestionHolderFillGaps onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-//            return new QuestionHolderQcm(inflater);
+
+
+
             return null;
         }
 
@@ -225,8 +228,11 @@ public class Test extends BaseActivity {
 
         class QuestionHolderFillGaps extends RecyclerView.ViewHolder{
 
-            public QuestionHolderFillGaps(@NonNull View itemView) {
-                super(itemView);
+            QuestionFillGapsBinding binding;
+
+            public QuestionHolderFillGaps(@NonNull QuestionFillGapsBinding itemView) {
+                super(itemView.getRoot());
+                binding = itemView;
             }
 
             public void updateUi(Question question){

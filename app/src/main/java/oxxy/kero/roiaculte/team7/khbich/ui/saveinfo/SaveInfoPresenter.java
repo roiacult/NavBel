@@ -102,8 +102,6 @@ public class SaveInfoPresenter extends BasePresenter<ContractSaveInfo.VIEW> impl
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK && result.getUri() != null){
 
-//                Uri path =ImageUtil.getImage(getView().getBaseActivity(),result.getUri().toString(),"profile.jpg");
-
                 viewModel.getUserView().setPicture(result.getUri().toString());
                     Log.d(TAG, "onActivityResult: "+viewModel.getUserView().getPicture());
                     getView().setImage(viewModel.getUserView().getPicture());
